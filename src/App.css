@@ -1,3 +1,69 @@
+/*@font-face {
+  src: url(./assets/fonts/helvetica/FreeSans.otf);
+  font-family: Helvetica-N;
+}
+@font-face {
+  src: url(./assets/fonts/helvetica/FreeSansBold.otf);
+  font-family: HelveticaN-bold;
+}*/
+
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'PT Sans';
+}
+html{
+  scroll-behavior:smooth;
+}
+button{
+  cursor: pointer;
+}
+.btn{
+  cursor: pointer;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+li{
+  list-style: none;
+}
+input, select, textarea { 
+  font-size: 100%; 
+}
+input{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+ 
+
+/* device */
+.device{
+  display: none;
+}
+
+@media (max-width : 1000px){
+  section{
+      display: none;
+  }
+  .device {
+    display: block;
+    color: #6548C3;
+    text-align: center;
+    margin: 30% auto;
+    width: 90%;
+    transition: .8s ease-in;
+  }
+}
+
+ 
+
+/*
 .App {
   text-align: center;
 }
@@ -36,3 +102,4 @@
     transform: rotate(360deg);
   }
 }
+*/

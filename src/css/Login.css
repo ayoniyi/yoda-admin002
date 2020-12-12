@@ -1,0 +1,131 @@
+.login-content{
+    height: 100vh;
+}
+.login-boxes{
+    display: flex;
+    height: 100vh;
+}
+.login-left{
+    width: 50%;
+    background: #6548C3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*.login-left-box{}*/
+
+.login-right{
+    width: 50%;
+    /*background: cornsilk;*/
+    display: flex;
+    flex-direction: column;
+}
+
+.login-right-box{
+  margin-top: 1em;
+}
+
+.login-top{
+    margin: 3em 0 0 14em;
+    display: flex;
+    /*align-items: center;
+    justify-content: center;*/
+}
+.back-action{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    color:  #6548C3;
+    width: 5%;
+    margin: 4em;
+    transition: .4s ease-in-out;
+    /*background: chocolate;*/  
+}
+.back-action:hover{
+    margin-left: 3em;
+    transition: .4s ease-in-out;
+}
+.login-body{
+    /*background: chocolate;*/
+    margin-top: 4em;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: 5em 0 0 10em;  
+}
+.login-title{
+    font-size: 3em;
+}
+
+.login-form{
+    display: flex;
+    /*background: cornsilk;*/
+    flex-direction: column;
+    margin: 3em 0;
+   
+}
+.field1{
+    margin: .5em 0;
+    border: 1px solid #979797;
+    border-radius: 10px;
+    width: 335px;
+    height: 45px;
+    padding: 1em;
+    font-size: .8em;
+}
+.field1:focus{
+    outline: none;
+}
+.btn-field{
+    background: #6548C3 ;
+    color: #fff;
+
+    margin: .5em 0;
+    border: 0;
+    border-radius: 10px;
+    width: 335px;
+    height: 45px;
+    padding: .5em;
+    font-size: .85em;
+}
+.btn-field:focus{
+    outline: none;
+}
+.bottom-sp{
+    margin-bottom: 2em;
+}
+.forgot-text{
+    width: 335px;
+    text-align: center;
+    margin-top: 1em;
+    font-weight: 400;
+    color: #6548C3;
+}
+/* */
+.load-gif{
+    display: none;
+    width: 100%;
+    text-align: center;
+    margin-top: .5em;
+    
+}
+/* */
+.load-gif img{
+    width: 10%;
+}
+
+.load-gif-on{
+    display: block;
+    width: 335px;
+    /*background: blanchedalmond;*/
+    text-align: center;
+    margin-top: .5em;
+}
+
+.log-error{
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    width: 335px;
+}

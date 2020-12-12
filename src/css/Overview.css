@@ -1,0 +1,219 @@
+.overview{
+    background: #e5e5e55d;
+}
+.overview-content{
+    width: 78%;
+    padding: 6em 0 10em 1em;
+    margin-left: 272px;
+
+}
+.overview-boxesa{
+    display: flex;
+    margin-top: 1em;
+}
+.overboxa-left{
+    background: #FFFFFF;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 1.5em 1.5em 0 1.5em;
+    width: 64%;
+}
+.overboxa-left img{
+    width: 95%;
+}
+.boxa-left-top{
+    display: flex;
+    justify-content: space-between;
+}
+.topa-title{
+    font-size: 1.1em;
+}
+.input-date{
+    width:130px;
+    height: 40px;
+    background: #fff;
+    border: 1px solid #D9D9D9;
+    box-sizing: border-box;
+    border-radius: 4px;
+    margin-right: 1em;
+    padding: .1em;
+    font-size: .9em;
+    color: #8C8C8C;
+}
+.input-date:focus, .select-edit:focus{
+    outline: none;
+}
+/*   */
+.select-edit{
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-size: .9em;
+    width:175px;
+    height: 40px;
+    border: 1px solid #D9D9D9;
+    box-sizing: border-box;
+    border-radius: 4px;
+    margin-right: 1em;
+    padding: .6em;
+    color: #8C8C8C;
+    background-image: url('../assets/svg/down-arrow.svg');
+    background-repeat: no-repeat;
+    background-position: right 10px bottom 13px;
+}
+
+.overboxa-right{
+    margin-left: 1.5em;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 34%;
+    padding: 1em 0 0 1em
+}
+
+.line{
+    margin-top: 1.5em;
+    border-top: 0.8px solid #E8E8E8; 
+    width: 100%;
+    padding-left: -1em;
+}
+.rightbox-a{
+    margin-top: 2.4em;
+}
+.rightbox-a strong{
+    font-size: 1.7em;
+    margin-top: .5em;
+}
+.boxtl-small{
+    color: #979797;
+}
+.righta-bottom{
+    margin-top: 4.1em;
+    background: #6548c315;
+    border-radius: 0px 0px 5px 5px;
+    display: flex;
+    padding: 1.7em 1em ;
+    margin-left: -1em;
+}
+.righta-bottom p{
+    font-size: 1.1em;
+}
+.righta-bottom strong{
+    margin-left: 1em;
+}
+
+.overview-4boxes{
+    margin-top: 1.5em;
+    display: flex;
+    width: 100%;
+    /*background: #979797;*/    
+    
+}
+.overview-4box{
+    padding: 1em 1em 2em 1.7em;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 26%;
+    margin-right: 1em;
+}
+.overview-4box-l{
+    padding: 1em 1em 2em 1.7em;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 26%;
+    margin-right: 0;
+}
+.box4-top{
+    display: flex;
+    justify-content: space-between;
+}
+.box4-top p{
+    margin-right: 1em;
+    margin-top: 1em;
+    font-size: 1.1em;
+    /*background: lavender;*/
+}
+.overview-4box strong,
+.overview-4box-l strong{
+    font-size: 1.65em;
+}
+
+.overview-boxesb{
+    margin-top: 2em;
+    display: flex;
+}
+.overviewboxb-left{
+    background: #FFFFFF;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 34%;
+    padding: 1.5em 1em 1em 1em;
+}
+.wallet-card{
+    margin-top: 2em;
+    padding: 2em 2em 4em 2.5em ;
+    background: url(../assets/svg/icons/card-icons.svg);
+    background-color: #fecbc559;
+    background-position: 2em 6.7em;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+}
+.wallet-card p{
+    font-size: .97em;
+    color: rgba(0, 0, 0, 0.705);
+}
+.wallet-card strong{
+    font-size: 1.65em;
+}
+.overviewboxb-right{
+    background: #FFFFFF;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 64%;
+    margin-left: 1em;
+    padding: 1.5em 1em 1em 1em;
+}
+.overviewboxb-right img{
+    width: 100%;
+}
+
+.overview-c{
+    margin-top: 2em;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 65%;
+}
+.overc-top{
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 2em 0 2em;
+}
+.overc-table{
+    padding-bottom: 2em;
+}
+.a-link{
+    color:#6548C3;
+}
+
+.overc-table-top{
+    margin-top: 1em;
+    font-weight: bolder;
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.2fr 1.5fr 1.2fr;
+    background: #F1F1F1;
+    padding: 1em 0 1em 2.5em;
+}
+.overc-top p{
+    font-size: 1.1em;
+}
+
+.overc-single{
+    margin-top: 1em;
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.2fr 1.5fr 1.2fr;
+    padding: 1em 0 1em 2.5em;
+    border-bottom: .5px solid rgba(0, 0, 0, 0.075);
+}
