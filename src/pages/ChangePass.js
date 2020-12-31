@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-//import axios from 'axios';
+import axios from 'axios';
 
 //css
 import '../css/Settings.css'
@@ -20,6 +20,70 @@ import Bcal from '../assets/svg/icons/cal-blue.svg'*/
 
 
 class ChangePass extends Component {
+
+    state = {
+        messageRes: "",
+        match: ""
+    }
+
+    handleSubmit = event => {
+        
+        event.preventDefault();
+
+        
+        const token = localStorage.getItem("tokenset");
+        console.log(token)
+        if (token === null ) {
+            window.location="/"
+        }
+    
+
+        if(this.state.newPassword === this.state.confirmPassword) {
+
+        
+            const updatePass = {
+                "currentPassword": this.state.currentPassword,
+                "newPassword": this.state.newPassword,
+            }
+
+            let axiosConfig = {
+                headers: {
+                    'authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json', 
+                }
+            };
+    
+            const adminId = localStorage.getItem("adminId")
+    
+            const baseURL = localStorage.getItem("baseURL")
+
+            axios.put(`${baseURL}/admin/${adminId}`, updatePass, axiosConfig)
+            .then((res) => {
+            
+                console.log(res.data.data)
+            
+                console.log("RESPONSE RECEIVED: ", res);
+
+                this.setState({ messageRes: "Password Updated" });
+                this.setState({ match : ""})
+            
+            })
+            .catch((err) => {
+                console.log("AXIOS ERROR: ", err);
+
+                this.setState({ messageRes: "Failed! Pls check old password." });
+                this.setState({ match : ""})
+                
+            })  
+        }else {
+                this.setState({ 
+                    match: "Passwords don't match.",
+                    messageRes: " "
+                 });
+            }
+    }
+
+  
 
     render () {
         return (
@@ -48,7 +112,7 @@ class ChangePass extends Component {
                         <h1 className="page-title"> Profile </h1>
                         <div className="settings-container">
                         <div className="settings-box">
-                                <form className="settings-up  animate__animated animate__slideInRight">
+                                <form className="settings-up  animate__animated animate__slideInRight" onSubmit={this.handleSubmit}>
                                     <div className="settings-left">
                                         <p className="cp-title">Change Password</p>
                                         <div className="settings-1">
@@ -83,6 +147,8 @@ class ChangePass extends Component {
                                             <div className="st-single1">
                                                 <input className="st-btn" type="submit" value="Save" />
                                             </div>
+                                            <p className="up-res">{this.state.messageRes}</p>
+                                            <p className="red">{this.state.match}</p>
                                         </div>
                                     </div>
                                     

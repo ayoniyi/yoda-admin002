@@ -1,31 +1,30 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { CSVLink, } from "react-csv";
+
 
 //css
 import '../css/Loans.css'
+
 
 // components
 import Sidemenu2 from '../components/menus/SideMenu2'
 import Header from '../components/Header'
 
 //assets
-/*
-import Bar from '../assets/png/bar1.png'
-import Greencal from '../assets/svg/icons/cal-green.svg'
-import Ycal from '../assets/svg/icons/cal-yellow.svg'
-import ocal from '../assets/svg/icons/cal-orange.svg'
-import Bcal from '../assets/svg/icons/cal-blue.svg'
-*/
+
 import Loadicon from '../assets/png/loadgr.gif'
 
-class LoanAll extends Component {
+
+class Ontime extends Component {
 
     state = {
-        LoansA: [],
-        isLoaded: false,
-        searchParam: ""
+        LoansL: [],
+        allLoanData: [],
+        isLoaded: false
     };
+
 
     componentDidMount() {
         const token = localStorage.getItem("tokenset");
@@ -43,84 +42,64 @@ class LoanAll extends Component {
 
         const baseURL = localStorage.getItem("baseURL")
 
-        axios.get(`${baseURL}/admin/loan`, axiosConfig)
+        axios.get(`${baseURL}/admin/loan?limit=60`, axiosConfig)
         .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
 
             this.setState({ 
-                LoansA: res.data.data.transactions.docs,
+                //LoansL: res.data.data.transactions.docs,
+                LoansL: res.data.data.transactions.docs.filter(tP => tP.status === "paid"),
                 resPages: res.data.data.transactions.totalPages,
                 resLoans: res.data.data.transactions.totalDocs,
-                resPg: res.data.data.transactions.page,
                 isLoaded: true
             });
+            
+            //
+            //const totalPaid0 = res.data.data.transactions.docs.filter(tP => tP.status === "paid")
 
-            this.setState({ nullres : "" })
+            // new CSV method /////////////////////////////////
+            const objectToCsv = function(dataAll){
+                const csvRows = [];
 
-            /*if( this.state.LoansA.totalDocs === 0){
-                this.setState({ nullres : "No Users Found" });
-            }*/
+                // get the headers
+                const resHeaders = Object.keys(dataAll[0]);
+                csvRows.push(resHeaders.join(','));
+                
+                // loop over the rows
+                for (const row of dataAll) {
+                    const valU = resHeaders.map(header1 => {
+                        return row[header1]
+                    })
+                    csvRows.push(valU.join(','));
+                }
+
+                return csvRows.join('\n\n');
+            }
+            
+            const dataAll = this.state.LoansL.map(row => ({
+                Name: row.customer.firstName + " " + row.customer.lastName,
+                Amount: row.amount,
+                InterestRate: row.paybackInterestRate+"%",
+                InterestAmount: "₦"+Math.round(row.paybackInterest),
+                PaybackAmount: "₦"+Math.round(row.paybackAmount),
+                PaybackDate: row.paybackDate.substring(0,10),
+                Status: row.status
+            }))
+            
+            const csvData1 = objectToCsv(dataAll)
+           // console.log(csvData1);
+
+            ////////////////////////
+            this.setState({ allLoanData: csvData1 });
+            //console.log(this.state.allLoanData)
+
 
           })
           .catch((err) => {
             console.log("AXIOS ERROR: ", err);
-           // this.setState({ nullres : "No Users Found" });
             
             this.setState({ isLoaded: true });
           })  
-    }
-
-    handleChangeDate = async (event) => {
-        await this.setState({ startDate : event.target.value });
-        console.log(this.state.startDate)
-    }
-    handleChangeDate2 = async (event) => {
-        await this.setState({ endDate : event.target.value });
-        console.log(this.state.endDate)
-    }
-
-    handleDate = event => {
-        
-        event.preventDefault();
-
-        const token = localStorage.getItem("tokenset");
-
-        this.setState({ isLoaded: false })
-
-        let axiosConfig = {
-            headers: {
-                'authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json', 
-            }
-        };
-
-        const baseURL = localStorage.getItem("baseURL")
-        const startDate = this.state.startDate;
-        const endDate = this.state.endDate;
-        const searchparam = this.state.searchParam;
-        const status = this.state.status;
-
-        console.log(status)
-        //console.log(startDate)
-
-        axios.get(`${baseURL}/admin/loan?startDate=${startDate}&endDate=${endDate}&q=${searchparam}&status=${status}`, axiosConfig)
-        .then((res2) => {
-            console.log("RESPONSE RECEIVED: ", res2);
-
-            this.setState({ 
-                LoansA: res2.data.data.transactions.docs,
-                resPages: res2.data.data.transactions.totalPages,
-                resLoans: res2.data.data.transactions.totalDocs,
-                isLoaded: true
-            });
-
-          })
-          .catch((err) => {
-            console.log("AXIOS ERROR: ", err);
-           // this.setState({ nullres : "No Users Found" });
-            
-            this.setState({ isLoaded: true });
-          }) 
     }
 
     paginate = async (event) => {
@@ -151,7 +130,7 @@ class LoanAll extends Component {
             console.log("RESPONSE RECEIVED: ", res);
 
             this.setState({ 
-                LoansA: res.data.data.transactions.docs,
+                LoansL: res.data.data.transactions.docs.filter(tP => tP.status === "paid"),
                 
                 isLoaded: true
             });
@@ -166,21 +145,17 @@ class LoanAll extends Component {
     }
 
     render () {
+        
+      let today = new Date();
 
-        localStorage.setItem("loanid",this.state.loanid );
+      const dd = String(today.getDate()).padStart(2, '0');
+      const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      const yyyy = today.getFullYear();
 
-        let today = new Date();
+      let today1 = yyyy + '-' + mm + '-' + dd ;
 
-        const dd = String(today.getDate()).padStart(2, '0');
-        const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        const yyyy = today.getFullYear();
-
-        let today1 = yyyy + '-' + mm + '-' + dd ;
-
-        //let sn = 1;
-
-        return (
-            <div>
+       return (
+           <div>
                 <Header />
                 <Sidemenu2 />
                 <section className="loan-request">
@@ -196,7 +171,7 @@ class LoanAll extends Component {
                             </div>
                         </Link>
                         <Link to="/loansall">
-                            <div className="loan-nav-item-a">
+                            <div className="loan-nav-item">
                                 <p>All Loans</p>
                             </div>
                         </Link>
@@ -207,26 +182,9 @@ class LoanAll extends Component {
                         </Link>
                     </div>
                     <div className="loan-req-content animate__animated animate__fadeIn animate__slow">
-                        <form className="lr-top"  onSubmit={this.handleDate}>
+                        <form className="lr-top"  >
                             <div className="lr-top-left">
-                                <h1 className="page-title">All Loans</h1>
-                                <div className="lr-cal2" >
-                                    <select className="select-edit"  onChange= {(e) => this.setState({ status : e.target.value})} >
-                                        <option defaultValue>Filter by Status</option>
-                                        {/*<option value=" In Progress ">In Progress</option>*/}
-                                        <option value="credit">Unpaid</option>
-                                        <option value="paid">Paid</option>
-                                    </select>
-                                    <input className="input-date" type="date" onChange={this.handleChangeDate} required />
-                                    <input className="input-date" type="date" onChange={this.handleChangeDate2} required/> 
-                                </div>
-                            </div>
-                            <div className="lr-top-right">
-                                <div>
-                                    <input className="search-field" type="text" placeholder="Search" 
-                                    onChange= {(e) => this.setState({ searchParam : e.target.value})} required/>
-                                    <input className="search-submit" type="submit" value="Search" />
-                                </div>
+                                <h1 className="page-title"> On-time payments </h1>
                             </div>
                         </form>
                         {this.state.isLoaded ?  (
@@ -241,7 +199,7 @@ class LoanAll extends Component {
                                 <p>Status</p>
                             </div>
                             <div>
-                                {this.state.LoansA.map (loans1 =>
+                                {this.state.LoansL.map (loans1 =>
                                 <div className="lr-single2" key={loans1._id}>
                                     <p>{loans1.customer.firstName + " " + loans1.customer.lastName}</p>
                                     <p>₦{loans1.amount}</p>
@@ -272,31 +230,36 @@ class LoanAll extends Component {
                                 </div>
                                 )}
                             </div>
+                            <br></br>
+                            <CSVLink
+                                data={this.state.allLoanData}
+                                filename={"OntimePayments.csv"}>
+                                <button className="export-submit">
+                                Export
+                                </button>
+                            </CSVLink>
+                            
                         </div>): ( 
                                 <div className="load-animation">
                                     <img  className="icon-load" src={Loadicon}  alt="loading"/> 
                                 </div>
                         )}
-                       {this.state.resPages >= 2 && (
+                        {/* {this.state.resPages >= 3 && (
                         <div className="paginate-btns">
-                            {/*this.state.resPages*/}
-                            {/*<button className="pg-btn">{sn++}</button>*/}
-                            <p className="pg-txt">Pages: </p>
                             {[...Array(this.state.resPages)].map((btn, index) =>  
                                 <button className="pg-btn" 
                                 onClick={this.paginate} 
                                 value={index+1} >
                                     {index+1}
                                 </button>
-                                
                             )}
                         </div>
-                       )}
+                       )} */}
                     </div>
                 </section>
-            </div>
-        )
+           </div>
+       )
     }
 }
 
-export default LoanAll;
+export default Ontime;

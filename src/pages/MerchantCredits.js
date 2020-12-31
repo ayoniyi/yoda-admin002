@@ -55,9 +55,9 @@ class MerchantCredits extends Component {
             this.setState({ isLoaded: true });
           })  
         
+          const baseURL = localStorage.getItem("baseURL")
 
-
-        axios.get(`https://yoda-backend.herokuapp.com/admin/merchant/${merchantId}/credit?limit=5`, axiosConfig)
+        axios.get(`${baseURL}/admin/merchant/${merchantId}/credit?limit=5`, axiosConfig)
         .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
 

@@ -13,7 +13,7 @@ import Users from '../../assets/svg/icons/users.svg'
 import Merchants from '../../assets/svg/icons/merchants.svg'
 import Wallet from '../../assets/svg/icons/wallet.svg'
 import Guarantors from '../../assets/svg/icons/guarant.svg'
-import Notifications from '../../assets/svg/icons/notifications-a.svg'
+//import Notifications from '../../assets/svg/icons/notifications-a.svg'
 import Settings from '../../assets/svg/icons/settings.svg'
 import Logout from '../../assets/svg/icons/logout.svg'
 
@@ -69,12 +69,12 @@ class SideMenu7 extends Component {
                                 </div>
                                 <div className="line-space"></div>
 
-                                <div className="sidemenu-links-a">
+                                {/*<div className="sidemenu-links-a">
                                     <Link to="/notifications" className="side-links">
                                             <img src={Notifications} alt="" />
                                         <p>Notifications</p>
                                     </Link>
-                                </div>
+                                </div>*/}
                                 <div className="sidemenu-links">
                                     <Link to="/settings" className="side-links">
                                             <img src={Settings} alt="" />

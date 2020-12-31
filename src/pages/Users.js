@@ -42,6 +42,8 @@ class Users extends Component {
 
             this.setState({ 
                 UsersA: res.data.data.users.docs,
+                resPages: res.data.data.users.totalPages,
+                resLoans: res.data.data.users.totalDocs,
                 isLoaded: true
             });
 
@@ -77,17 +79,21 @@ class Users extends Component {
             }
         };
 
+        const baseURL = localStorage.getItem("baseURL")
+
         const searchparam = this.state.searchParam;
 
         this.setState({ isLoaded: false })
 
-        axios.get(`https://yoda-backend.herokuapp.com/admin/user/search?query=${searchparam}`, axiosConfig)
+        axios.get(`${baseURL}/admin/user/search?query=${searchparam}`, axiosConfig)
         .then((res) => {
 
             this.setState({ UsersA: [] })
            
             this.setState({ 
                 UsersA: res.data.data.users.docs,
+                resPages: res.data.data.users.totalPages,
+                resLoans: res.data.data.users.totalDocs,
                 isLoaded: true
             });
 
@@ -109,6 +115,52 @@ class Users extends Component {
         }) 
          
     }
+
+    paginate = async (event) => {
+
+        event.preventDefault();
+
+        await this.setState({ 
+            isLoaded: false,
+            pageNumber : event.target.value 
+        });
+
+
+        const token = localStorage.getItem("tokenset");
+    
+        let axiosConfig = {
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json', 
+            }
+        };
+
+        const baseURL = localStorage.getItem("baseURL")
+        const searchparam = this.state.searchParam;
+        const pageNumber = this.state.pageNumber
+        //console.log(pageNo)
+
+        axios.get(`${baseURL}/admin/user?page=${pageNumber}&query=${searchparam}`, axiosConfig)
+        .then((res) => {
+            console.log("RESPONSE RECEIVED: ", res);
+
+            this.setState({ 
+                UsersA: res.data.data.users.docs,
+                resPages: res.data.data.users.totalPages,
+                resLoans: res.data.data.users.totalDocs,
+                
+                isLoaded: true
+            });
+
+          })
+          .catch((err) => {
+            console.log("AXIOS ERROR: ", err);
+            
+            this.setState({ isLoaded: true });
+          })  
+
+    }
+
 
     /*reDirect () {
         setTimeout(function() {
@@ -191,6 +243,21 @@ class Users extends Component {
                                     <img  className="icon-load" src={Loadicon}  alt="loading"/> 
                                 </div>
                         )}
+                         {this.state.UsersA.length >= 10 && (
+                        <div className="paginate-btns">
+                            {/*this.state.resPages*/}
+                            {/*<button className="pg-btn">{sn++}</button>*/}
+                            <p className="pg-txt">Pages: </p>
+                            {[...Array(this.state.resPages)].map((btn, index) =>  
+                                <button className="pg-btn" 
+                                onClick={this.paginate} 
+                                value={index+1} >
+                                    {index+1}
+                                </button>
+                                
+                            )}
+                        </div>
+                       )}
                     </div>
                 </section>
             </div>

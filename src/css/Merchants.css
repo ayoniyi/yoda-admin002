@@ -90,6 +90,7 @@ input[type="radio"]{
     transition: .3s ease-in;
 }
 
+
 .merchants-single p{
     margin-top: 0em;
 }
@@ -228,6 +229,8 @@ input[type="radio"]{
 
 .pb-btns{
     margin: 3.5em 0 1.5em .8em;
+    /* */
+    display: flex;
 }
 .pb-cancel{
     border: 1px solid #6548C3;
@@ -247,7 +250,8 @@ input[type="radio"]{
     width: 205.5px;
     height: 45px;
 }
-.pb-submit{
+
+.pb-submit1{
     border: 0;
     background: #6548C3;
     color: #fff;
@@ -255,6 +259,9 @@ input[type="radio"]{
     padding: .5em 1.4em;
     width: 205.5px;
     height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .pb-submit-red{
     border: 0;
@@ -265,6 +272,9 @@ input[type="radio"]{
     width: 205.5px;
     height: 45px;
 }
-.pb-cancel:focus, .pb-submit:focus{
+.pb-cancel:focus, .pb-submit:focus, .pb-submit-red:focus{
     outline: none;
+    background: white;
+    color: black;
+    border: 1px solid #6548C3;
 }

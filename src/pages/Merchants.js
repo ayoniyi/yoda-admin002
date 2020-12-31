@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { CSVLink, } from "react-csv";
 
 //css
 import '../css/Merchants.css'
@@ -58,17 +59,45 @@ class Merchants extends Component {
 
             this.setState({ nullres : "" })
 
-            /*if( this.state.MerchantsA.totalDocs === 0){
-                this.setState({ nullres : "No Users Found" });
-            }*/
+            // new CSV method /////////////////////////////////
+            const objectToCsv = function(dataAll){
+                const csvRows = [];
 
-          })
-          .catch((err) => {
-            console.log("AXIOS ERROR: ", err);
-           // this.setState({ nullres : "No Users Found" });
+                // get the headers
+                const resHeaders = Object.keys(dataAll[0]);
+                csvRows.push(resHeaders.join(','));
+                
+                // loop over the rows
+                for (const row of dataAll) {
+                    const valU = resHeaders.map(header1 => {
+                        return row[header1]
+                    })
+                    csvRows.push(valU.join(','));
+                }
+
+                return csvRows.join('\n\n');
+            }
             
-            this.setState({ isLoaded: true });
-          })  
+            const dataAll = this.state.MerchantsA.map(row => ({
+                BusinessName: row.businessName,
+                Phone: row.mobile,
+                Email: row.email,
+                Address: row.address
+            }))
+            
+            const csvData1 = objectToCsv(dataAll)
+           // console.log(csvData1);
+
+            ////////////////////////
+            this.setState({ allMerchants: csvData1 });
+
+        })
+        .catch((err) => {
+        console.log("AXIOS ERROR: ", err);
+        // this.setState({ nullres : "No Users Found" });
+        
+        this.setState({ isLoaded: true });
+        })  
          
     }
 
@@ -145,17 +174,17 @@ class Merchants extends Component {
                                     <div className="pb-opt">
                                         <div className="pb-radio">
                                             <input type="radio" name="export" value="email" />
-                                            <span class="checkmark"></span>
+                                            <span className="checkmark"></span>
                                             <label className="pb-val" htmlFor="male">Only Email</label>
                                         </div>
                                         <div className="pb-radio">
                                             <input type="radio" name="export" value="phone" />
-                                            <span class="checkmark"></span>
+                                            <span className="checkmark"></span>
                                             <label  className="pb-val" htmlFor="male">Only Phone Number</label>
                                         </div>
                                         <div className="pb-radio">
                                             <input type="radio" name="export" value="both" />
-                                            <span class="checkmark"></span>
+                                            <span className="checkmark"></span>
                                             <label  className="pb-val" htmlFor="male">Both</label>
                                         </div>
                                     </div>
@@ -165,9 +194,13 @@ class Merchants extends Component {
                                         className="pb-cancel">
                                             Cancel
                                         </button>
-                                        <button className="pb-submit">
+                                        <CSVLink
+                                        data={this.state.allMerchants}
+                                        filename={"merchantslist.csv"}>
+                                            <div className="pb-submit1">
                                             Export
-                                        </button>
+                                            </div>
+                                        </CSVLink>
                                     </div>
                                 </form>
                             </div>

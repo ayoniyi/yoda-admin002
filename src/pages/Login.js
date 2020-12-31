@@ -41,12 +41,10 @@ class Login extends Component {
             
             if (this.state.authRes === "Admin authenticated successfully.")  {
                 
-            
                localStorage.setItem("tokenset", res.data.data.admin.token);
-               //console.log(res.data.data.admin.token)
                
                localStorage.setItem("baseURL", "https://yoda-backend.herokuapp.com")
-               //localStorage.setItem("adminIdentity", res.data.data.user._id)
+               localStorage.setItem("adminId", res.data.data.admin.id)
                window.location = "/overview";
                
             }

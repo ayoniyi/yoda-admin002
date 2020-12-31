@@ -11,7 +11,7 @@ import Sidemenu8 from '../components/menus/SideMenu8'
 import Header from '../components/Header'
 
 //assets
-import Girl from '../assets/png/profile.png'
+//import Girl from '../assets/png/profile.png'
 /*
 import Greencal from '../assets/svg/icons/cal-green.svg'
 import Ycal from '../assets/svg/icons/cal-yellow.svg'
@@ -31,6 +31,10 @@ class SettingsAdd extends Component {
         //console.log(token)
         if (token === null ) {
             window.location="/"
+        }
+        const aRole = localStorage.getItem("adminRole1");
+        if( aRole !== "admin") {
+            window.location="/settings"
         }
         
         event.preventDefault();
@@ -52,16 +56,12 @@ class SettingsAdd extends Component {
            let axiosConfig = {
                 headers: {
                     'authorization': `Bearer ${token}`,
-                    /*'Content-Type': 'application/json', 
-                    "deviceId": deviceId,
-                    "role": "admin",
-                    "app-version": '1',*/
                 }
             };
 
-            //const baseURL = localStorage.getItem("baseURL")
+            const baseURL = localStorage.getItem("baseURL")
 
-            axios.post(`https://yoda-backend.herokuapp.com/admin/register`, adminNew, axiosConfig)
+            axios.post(`${baseURL}/admin/register`, adminNew, axiosConfig)
             .then((res) => {
             
                 console.log(res.data.data)
@@ -174,10 +174,12 @@ class SettingsAdd extends Component {
                                             <p className=" red">{this.state.match}</p>
                                         </div>
                                     </div>
+                                    {/*}
                                     <div className="settings-right">
                                         <img src={Girl} alt="upload" />
                                         <p className="purple-txt">Upload picture</p>
                                     </div>
+                                     */}
                                 </form>
                             </div>
 

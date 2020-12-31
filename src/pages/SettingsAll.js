@@ -27,9 +27,11 @@ class SettingsAll extends Component {
         AdminsA: [],
         isLoaded: false,
         searchParam: "",
+        memberid: "",
         
         popClicked1: false,
         popClicked2: false,
+        popClicked3: false
         
     };
 
@@ -37,10 +39,14 @@ class SettingsAll extends Component {
     componentDidMount() {
 
        const token = localStorage.getItem("tokenset");
-        console.log(token)
+        //console.log(token)
         if (token === null ) {
             window.location="/"
         }
+        // const aRole = localStorage.getItem("adminRole1");
+        // if( aRole !== "admin") {
+        //     window.location="/settings"
+        // }
     
         let axiosConfig = {
             headers: {
@@ -70,15 +76,41 @@ class SettingsAll extends Component {
            // this.setState({ nullres : "No Users Found" });
             
             this.setState({ isLoaded: true });
-          })  
+          }) 
+          
+        
+        /*
+        // Get Particular admin
+
+        const adminsId = this.state.memberid
+
+        axios.get(`https://yoda-backend.herokuapp.com/admin/5fc8fbf012681629c4d00da1`, axiosConfig)
+        .then((res1) => {
+
+           
+            this.setState({ 
+                AdminsName: res.data.data.admins.docs,
+                isLoaded: true
+            });
+
+            console.log("RESPONSE RECEIVED: ", res1);
+           
+        })
+          .catch((err1) => {
+            console.log("AXIOS ERROR: ", err1);
+           
+            this.setState({ isLoaded: true });
+            //this.setState({ nullres : "No Users Found" });
+        }) */
+
     }
 
     searchQuery = event => {
         
         event.preventDefault();
 
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzBhMjBiNGJjYzg5YzBiOTE3NThiZiIsImV4cCI6MTYzNzA2MDcxOSwiaWF0IjoxNjA1NTI0NzE5fQ.g1vRd26aCmgdFyTOtl9pVrbDQTC7T2rvta-7Rd4Ikjw";
-        
+        const token = localStorage.getItem("tokenset");
+
         let axiosConfig = {
             headers: {
                 'authorization': `Bearer ${token}`,
@@ -119,6 +151,130 @@ class SettingsAll extends Component {
          
     }
 
+    handleRoleChange = event => {
+
+        event.preventDefault();
+
+        const adminUpdate = {
+            "role" : this.state.newRole
+        }
+
+        const token = localStorage.getItem("tokenset");
+
+        let axiosConfig = {
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json', 
+            }
+        };
+
+        const adminsId = this.state.memberid
+
+        axios.put(`https://yoda-backend.herokuapp.com/admin/${adminsId}`, adminUpdate, axiosConfig)
+        .then((res) => {
+        
+            console.log(res.data.data)
+        
+            console.log("RESPONSE RECEIVED: ", res);
+
+            window.location = "/settingsall";
+
+            //this.setState({popClicked2: false})
+
+            //this.setState({ messageRes: "Profile Updated" });
+            //this.setState({ match : ""})
+        
+        })
+        .catch((err) => {
+            console.log("AXIOS ERROR: ", err);
+
+            this.setState({ messageRes: "Failed! Profile not Updated" });
+            //this.setState({ match : ""})
+            
+        }) 
+    }
+    handleDeactivate = event => {
+
+        event.preventDefault();
+
+        const adminUpdate = {
+            "enabled" : false
+        }
+
+        const token = localStorage.getItem("tokenset");
+
+        let axiosConfig = {
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json', 
+            }
+        };
+
+        const adminsId = this.state.memberid
+
+        axios.put(`https://yoda-backend.herokuapp.com/admin/${adminsId}`, adminUpdate, axiosConfig)
+        .then((res) => {
+        
+            console.log(res.data.data)
+        
+            console.log("RESPONSE RECEIVED: ", res);
+
+            window.location = "/settingsall";
+
+            //this.setState({ messageRes: "Profile Updated" });
+            //this.setState({ match : ""})
+        
+        })
+        .catch((err) => {
+            console.log("AXIOS ERROR: ", err);
+
+            this.setState({ messageRes: "Failed! Profile not Updated" });
+            //this.setState({ match : ""})
+            
+        }) 
+    }
+    handleActivate = event => {
+
+        event.preventDefault();
+
+        const adminUpdate = {
+            "enabled" : true
+        }
+
+        const token = localStorage.getItem("tokenset");
+
+        let axiosConfig = {
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json', 
+            }
+        };
+
+        const adminsId = this.state.memberid
+
+        axios.put(`https://yoda-backend.herokuapp.com/admin/${adminsId}`, adminUpdate, axiosConfig)
+        .then((res) => {
+        
+            console.log(res.data.data)
+        
+            console.log("RESPONSE RECEIVED: ", res);
+
+            //this.setState({popClicked3: false})
+            window.location = "/settingsall";
+
+            //this.setState({ messageRes: "Profile Updated" });
+            //this.setState({ match : ""})
+        
+        })
+        .catch((err) => {
+            console.log("AXIOS ERROR: ", err);
+
+            this.setState({ messageRes: "Failed! Profile not Updated" });
+            //this.setState({ match : ""})
+            
+        }) 
+    }
+
     render () {
         return (
             <div>
@@ -131,26 +287,29 @@ class SettingsAll extends Component {
                         <section className="popup ">
                             <div className="popup-box2 animate__animated animate__slideInDown ">
                                 <div className="pb-top">
-                                    <h1 className="pb-title">Change 's role</h1>
+                                    <h1 className="pb-title">Change role</h1>
                                     <img className="click" onClick={() => this.setState({popClicked1: false})}
                                     src={cancel} alt="x" />
                                 </div>
-                                <p className="pb-in">Choose what role " " will have below:</p>
-                                <form>
+                                <p className="pb-in">Choose what role this memeber will have below:</p>
+                                <form onSubmit={this.handleRoleChange}>
                                     <div className="pb-opt">
-                                        <div className="pb-radio">
-                                            <input type="radio" name="export" value="owner" />
-                                            <span class="checkmark"></span>
+                                        {/*<div className="pb-radio">
+                                            <input type="radio" name="export" value="owner"
+                                            onChange={(e) => this.setState({ newRole : e.target.value}) } />
+                                            <span className="checkmark"></span>
                                             <label className="pb-val" htmlFor="male">Owner</label>
-                                        </div>
+                                        </div>*/}
                                         <div className="pb-radio">
-                                            <input type="radio" name="export" value="admin" />
-                                            <span class="checkmark"></span>
+                                            <input type="radio" name="export" value="admin"
+                                            onChange={(e) => this.setState({ newRole : e.target.value}) } />
+                                            <span className="checkmark"></span>
                                             <label  className="pb-val" htmlFor="male">Admin</label>
                                         </div>
                                         <div className="pb-radio">
-                                            <input type="radio" name="export" value="member" />
-                                            <span class="checkmark"></span>
+                                            <input type="radio" name="export" value="member"
+                                            onChange={(e) => this.setState({ newRole : e.target.value}) } />
+                                            <span className="checkmark"></span>
                                             <label  className="pb-val" htmlFor="male">Member</label>
                                         </div>
                                     </div>
@@ -160,7 +319,7 @@ class SettingsAll extends Component {
                                         className="pb-cancel">
                                             Cancel
                                         </button>
-                                        <button className="pb-submit">
+                                        <button className="pb-submit" type="submit">
                                             Save
                                         </button>
                                     </div>
@@ -175,7 +334,7 @@ class SettingsAll extends Component {
                         <section className="popup ">
                             <div className="popup-box2 animate__animated animate__slideInUp ">
                                 <div className="pb-top">
-                                    <h1 className="pb-title">Deactivate ?</h1>
+                                    <h1 className="pb-title">Deactivate this memeber?</h1>
                                     <img className="click" onClick={() => this.setState({popClicked2: false})}
                                     src={cancel} alt="x" />
                                 </div>
@@ -192,8 +351,40 @@ class SettingsAll extends Component {
                                         className="pb-cancel">
                                             Cancel
                                         </button>
-                                        <button className="pb-submit-red">
+                                        <button className="pb-submit-red" onClick={this.handleDeactivate}>
                                             Deactivate
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                : null}
+                {this.state.popClicked3 ? 
+                    <div>
+                        <div className="overlay animate__animated animate__fadeIn "></div>
+                        <section className="popup ">
+                            <div className="popup-box2 animate__animated animate__slideInUp ">
+                                <div className="pb-top">
+                                    <h1 className="pb-title">Activate this memeber?</h1>
+                                    <img className="click" onClick={() => this.setState({popClicked3: false})}
+                                    src={cancel} alt="x" />
+                                </div>
+                               
+                                <form>
+                                    <div className="pb-opt">
+                                        <p>This member will be able to sign in to the admin 
+                                            platform.
+                                        </p>
+                                    </div>
+                                    
+                                    <div className="pb-btns">
+                                        <button onClick={() => this.setState({popClicked3: false})} 
+                                        className="pb-cancel">
+                                            Cancel
+                                        </button>
+                                        <button className="pb-submit" onClick={this.handleActivate}>
+                                            Activate
                                         </button>
                                     </div>
                                 </form>
@@ -275,15 +466,26 @@ class SettingsAll extends Component {
                                     <p>{admin1.role}</p>
                                     <p>{admin1.mobile}</p>
                                     <p>{admin1.email}</p>
+                                    
                                     <p className="ad-btns">
                                         <button className="adrole-btn"
-                                        onClick={() => this.setState({popClicked1: true}) + this.setState({ memberid : admin1._id})}>
+                                        onClick={() => this.setState({popClicked1: true, memberid: admin1._id}) }>
                                             Change Role 
                                         </button>
+                                        
+                                        {admin1.enabled !== false && ( 
                                         <button className="adde-btn"
-                                         onClick={() => this.setState({popClicked2: true}) + this.setState({ memberid : admin1._id})} > 
+                                         onClick={(e) => this.setState({popClicked2: true, memberid: admin1._id })} > 
                                          Deactivate 
                                         </button>
+                                        )}
+                                        
+                                        {admin1.enabled === false && ( 
+                                        <button className="adde-btn2"
+                                         onClick={(e) => this.setState({popClicked3: true, memberid: admin1._id })} > 
+                                         Activate 
+                                        </button>
+                                        )}
                                     </p>
                                     </div>
                                     )}

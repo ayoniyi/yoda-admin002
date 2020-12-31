@@ -11,6 +11,10 @@ import Loans from './pages/Loans';
 import LoanRequest from './pages/LoanRequest'
 import LoanAll from './pages/LoanAll'
 import LoanData from './pages/LoanData'
+import Ontime from './pages/Ontime'
+import Latethirty from './pages/Latethirty'
+import Latesixty from './pages/Latesixty'
+import Lateninety from './pages/Lateninety'
 //
 import Users from './pages/Users'
 import UserDetails from './pages/UserDetails'
@@ -29,6 +33,7 @@ import WalletFund from './pages/WalletFund'
 //
 import Guarantors from './pages/Guarantors'
 import GuarantorsA from './pages/GuarantorsA'
+import GuarantorView from './pages/GuarantorView'
 //
 import Notifications from './pages/Notifications'
 //
@@ -37,8 +42,14 @@ import SettingsAdd from './pages/SettingsAdd';
 import SettingsAll from './pages/SettingsAll';
 import ChangePass from './pages/ChangePass';
 
+
+import Dragdrop2 from './components/Dragdrop2'
+import Chart3 from './components/Chart3'
+
+
 //css
 import './App.css';
+
 
 
 
@@ -84,6 +95,23 @@ function App() {
         <Route
           path="/loandata"
           component={LoanData}
+        />
+
+        <Route
+          path="/ontime"
+          component={Ontime}
+        />
+        <Route
+          path="/late30"
+          component={Latethirty}
+        />
+        <Route
+          path="/late60"
+          component={Latesixty}
+        />
+        <Route
+          path="/late90"
+          component={Lateninety}
         />
 
         <Route
@@ -142,6 +170,11 @@ function App() {
         />
 
         <Route
+          path="/guarantorview"
+          component={GuarantorView}
+        />
+
+        <Route
           path="/notifications"
           component={Notifications}
         />
@@ -179,6 +212,16 @@ function App() {
         <Route
           path="/changepass"
           component={ChangePass}
+        />
+
+        <Route
+          path="/drop2"
+          component={Dragdrop2}
+        />
+
+        <Route
+          path="/chart3"
+          component={Chart3}
         />
 
       </Router>

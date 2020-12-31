@@ -37,8 +37,9 @@ class MerchantDebits extends Component {
 
         const merchantId = localStorage.getItem("merchantid")
 
+        const baseURL = localStorage.getItem("baseURL")
 
-        axios.get(`https://yoda-backend.herokuapp.com/admin/merchant/${merchantId}/debit?limit=5`, axiosConfig)
+        axios.get(`${baseURL}/admin/merchant/${merchantId}/debit?limit=5`, axiosConfig)
         .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
 

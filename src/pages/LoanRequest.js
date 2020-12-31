@@ -66,8 +66,8 @@ class LoanRequest extends Component {
                                 </form>
                             </div>
                         </div>
-                        <div class="lr-table">
-                            <div class="lrtable-top">
+                        <div className="lr-table">
+                            <div className="lrtable-top">
                                 <p>Name</p>
                                 <p>Amount</p>
                                 <p>Loan Terms</p>
@@ -75,7 +75,7 @@ class LoanRequest extends Component {
                                 <p>Payback date</p>
                                 <p>Status</p>
                             </div>
-                            <div class="lr-single">
+                            <div className="lr-single">
                                 <p>Olowu John</p>
                                 <p>₦5000</p>
                                 <p>30 days</p>
@@ -83,7 +83,7 @@ class LoanRequest extends Component {
                                 <p>12-02-2020</p>
                                 <p className="green-txt">Approved</p>
                             </div>
-                            <div class="lr-single">
+                            <div className="lr-single">
                                 <p>Olowu John</p>
                                 <p>₦5000</p>
                                 <p>30 days</p>
@@ -91,7 +91,7 @@ class LoanRequest extends Component {
                                 <p>12-02-2020</p>
                                 <p className="green-txt">Approved</p>
                             </div>
-                            <div class="lr-single">
+                            <div className="lr-single">
                                 <p>Olowu John</p>
                                 <p>₦5000</p>
                                 <p>30 days</p>
@@ -99,7 +99,7 @@ class LoanRequest extends Component {
                                 <p>12-02-2020</p>
                                 <p className="green-txt">Approved</p>
                             </div>
-                            <div class="lr-single">
+                            <div className="lr-single">
                                 <p>Olowu John</p>
                                 <p>₦5000</p>
                                 <p>30 days</p>
@@ -107,7 +107,7 @@ class LoanRequest extends Component {
                                 <p>12-02-2020</p>
                                 <p className="green-txt">Approved</p>
                             </div>
-                            <div class="lr-single">
+                            <div className="lr-single">
                                 <p>Olowu John</p>
                                 <p>₦5000</p>
                                 <p>30 days</p>
