@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-//import axios from 'axios';
+import axios from 'axios';
 
 //css
 import '../css/Loans.css'
@@ -18,9 +18,49 @@ import Ycal from '../assets/svg/icons/cal-yellow.svg'
 import ocal from '../assets/svg/icons/cal-orange.svg'
 import Bcal from '../assets/svg/icons/cal-blue.svg'
 */
+import Loadicon from '../assets/png/loadgr.gif'
 
 
 class LoanRequest extends Component {
+
+    state = {
+        LoansA: [],
+        isLoaded: false,
+    };
+
+    componentDidMount() {
+        const token = localStorage.getItem("tokenset");
+        //console.log(token)
+        if (token === null ) {
+            window.location="/"
+        }
+    
+        let axiosConfig = {
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json', 
+            }
+        };
+
+        const baseURL = localStorage.getItem("baseURL")
+
+        axios.get(`${baseURL}/admin/loan?limit=5`, axiosConfig)
+        .then((res) => {
+            console.log("RESPONSE RECEIVED: ", res);
+
+            this.setState({ 
+                LoansA: res.data.data.transactions.docs,
+                isLoaded: true
+            });
+
+          })
+          .catch((err) => {
+            console.log("AXIOS ERROR: ", err);
+           // this.setState({ nullres : "No Users Found" });
+            
+            this.setState({ isLoaded: true });
+          })  
+    }
 
     render () {
         return (
@@ -54,18 +94,19 @@ class LoanRequest extends Component {
                         <div className="lr-top">
                             <div className="lr-top-left">
                                 <h1 className="page-title">Loan Requests</h1>
-                                <div className="lr-cal">
+                                {/*<div className="lr-cal">
                                     <input className="input-date" type="date"/>
                                     <input className="input-date" type="date"/> 
-                                </div>
+                                </div>*/}
                             </div>
                             <div className="lr-top-right">
-                                <form>
+                               {/*} <form>
                                     <input className="search-field" type="text" placeholder="Search" />
                                     <input className="search-submit" type="submit" value="Search" />
-                                </form>
+                             </form>*/}
                             </div>
                         </div>
+                        {this.state.isLoaded ?  (
                         <div className="lr-table">
                             <div className="lrtable-top">
                                 <p>Name</p>
@@ -75,47 +116,32 @@ class LoanRequest extends Component {
                                 <p>Payback date</p>
                                 <p>Status</p>
                             </div>
-                            <div className="lr-single">
-                                <p>Olowu John</p>
-                                <p>₦5000</p>
-                                <p>30 days</p>
-                                <p>10.75%</p>
-                                <p>12-02-2020</p>
-                                <p className="green-txt">Approved</p>
-                            </div>
-                            <div className="lr-single">
-                                <p>Olowu John</p>
-                                <p>₦5000</p>
-                                <p>30 days</p>
-                                <p>10.75%</p>
-                                <p>12-02-2020</p>
-                                <p className="green-txt">Approved</p>
-                            </div>
-                            <div className="lr-single">
-                                <p>Olowu John</p>
-                                <p>₦5000</p>
-                                <p>30 days</p>
-                                <p>10.75%</p>
-                                <p>12-02-2020</p>
-                                <p className="green-txt">Approved</p>
-                            </div>
-                            <div className="lr-single">
-                                <p>Olowu John</p>
-                                <p>₦5000</p>
-                                <p>30 days</p>
-                                <p>10.75%</p>
-                                <p>12-02-2020</p>
-                                <p className="green-txt">Approved</p>
-                            </div>
-                            <div className="lr-single">
-                                <p>Olowu John</p>
-                                <p>₦5000</p>
-                                <p>30 days</p>
-                                <p>10.75%</p>
-                                <p>12-02-2020</p>
-                                <p className="green-txt">Approved</p>
+                            <div>
+                                {this.state.LoansA.map (loans1 =>
+                                <div className="lr-single" key={loans1._id}>
+                                   <p>{loans1.customer.firstName + " " + loans1.customer.lastName}</p>
+                                   <p>₦{loans1.amount}</p>
+                                   {loans1.paybackInterestRate === 5 && (
+                                        <p >30 days</p>
+                                    )}
+                                    {loans1.paybackInterestRate === 10 && (
+                                        <p >60 days</p>
+                                    )}
+                                    {loans1.paybackInterestRate === 15 && (
+                                        <p >90 days</p>
+                                    )}
+                                   <p>₦{loans1.paybackInterestRate}%</p>
+                                   <p>{loans1.paybackDate.substring(0,10)}</p>
+                                    <p className="green-txt">Approved</p>
+                                </div>
+                                )}
                             </div>
                         </div>
+                        ): ( 
+                            <div className="load-animation">
+                                <img  className="icon-load" src={Loadicon}  alt="loading"/> 
+                            </div>
+                        )}
                     </div>
                 </section>
             </div>
