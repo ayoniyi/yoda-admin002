@@ -8,6 +8,7 @@ import '../css/Sidemenu.css'
 // assets
 import Logo from '../assets/svg/logo2.svg'
 //import Girl from '../assets/png/girl.png'
+import Profile from '../assets/png/profile.png'
 //import Loadicon from '../assets/png/loadgr.gif'
 
 
@@ -74,7 +75,12 @@ class Header extends Component {
                             <img src={Logo} alt="logo" />
                             {this.state.isLoaded ?  (
                             <div className="pro">
-                                <img className="profile-circle" src={this.state.adminImage} alt="profile-pic" />
+                                {this.state.adminImage === null && (
+                                     <img className="profile-circle" src={Profile} alt="profile-pic" />
+                                )}
+                                {this.state.adminImage !== null && (
+                                     <img className="profile-circle" src={this.state.adminImage} alt="profile-pic" />
+                                )} 
                                 <p>{this.state.adminFirstname}</p>
                             </div>
                              ): ( 

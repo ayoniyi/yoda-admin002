@@ -47,7 +47,7 @@ class SettingsAdd extends Component {
                 "firstName": this.state.firstName,
                 "lastName": this.state.lastName,
                 "email": this.state.email,
-                "mobile": "2348083240552",
+                "mobile": this.state.mobile,
                 "password": this.state.password,
                 "role": this.state.role
                 //mobile is required?
@@ -127,6 +127,18 @@ class SettingsAdd extends Component {
                                                  onChange={(e) => this.setState({ lastName : e.target.value}) } 
                                                  required/>
                                             </div>
+                                            <div className="st-single-r">
+                                               
+                                            </div>
+                                        </div>
+                                        <div className="settings-1">
+                                            <div className="st-single1">
+                                                <p className="field-label">Phone :</p>
+                                                <input type="text" className="st-field1"
+                                                 placeholder="e.g +23480111111" 
+                                                 onChange={(e) => this.setState({ mobile : e.target.value}) } 
+                                                 required/>
+                                            </div>
                                         </div>
                                         <div className="settings-1">
                                             <div className="st-single1">
@@ -152,7 +164,7 @@ class SettingsAdd extends Component {
                                             <div className="st-single1">
                                                 <p className="field-label">Password</p>
                                                 <input type="password" className="st-field1"
-                                                placeholder="Change password" 
+                                                placeholder="Enter password" 
                                                 onChange={(e) => this.setState({ password : e.target.value}) }   
                                                 required/>
                                             </div>

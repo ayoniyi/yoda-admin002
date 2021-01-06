@@ -20,9 +20,8 @@ class Chart1 extends Component {
     }
 
     componentDidMount () {
-
         const token = localStorage.getItem("tokenset");
-        console.log(token)
+        //console.log(token)
         if (token === null ) {
             window.location="/"
         }
@@ -49,12 +48,13 @@ class Chart1 extends Component {
                 investments4: res.data.data.stats.investment[3].total,
                 investments5: res.data.data.stats.investment[4].total,
                 //
-                investments6: res.data.data.stats.investment[5].total,
-                investments7: res.data.data.stats.investment[6].total,
-                investments8: res.data.data.stats.investment[7].total,
+                // investments6: res.data.data.stats.investment[5].total,
+                // investments7: res.data.data.stats.investment[6].total,
+                // investments8: res.data.data.stats.investment[7].total,
 
                 isLoaded: true
             }); 
+            
 
             console.log(this.state.investments1)
 
@@ -67,9 +67,9 @@ class Chart1 extends Component {
             localStorage.setItem("inv4", this.state.investments4)
             localStorage.setItem("inv5", this.state.investments5)
             //
-            localStorage.setItem("inv6", this.state.investments6)
-            localStorage.setItem("inv7", this.state.investments7)
-            localStorage.setItem("inv8", this.state.investments8)
+            // localStorage.setItem("inv6", this.state.investments6)
+            // localStorage.setItem("inv7", this.state.investments7)
+            // localStorage.setItem("inv8", this.state.investments8)
             //
            
             })
@@ -83,7 +83,6 @@ class Chart1 extends Component {
         //console.log(this.state.investmentsA)
         console.log(localStorage.getItem("inv1"))
 
-
         let myChart1 = document.getElementById('myChart1').getContext('2d');
 
         //
@@ -96,9 +95,9 @@ class Chart1 extends Component {
          const inv4 = Math.round(localStorage.getItem("inv4"))
          const inv5 = Math.round(localStorage.getItem("inv5"))
          //
-         const inv6 = Math.round(localStorage.getItem("inv6"))
-         const inv7 = Math.round(localStorage.getItem("inv7"))
-         const inv8 = Math.round(localStorage.getItem("inv8"))
+        //  const inv6 = Math.round(localStorage.getItem("inv6"))
+        //  const inv7 = Math.round(localStorage.getItem("inv7"))
+        //  const inv8 = Math.round(localStorage.getItem("inv8"))
 
          console.log(inv1)
 
@@ -130,9 +129,12 @@ class Chart1 extends Component {
                         inv3,
                         inv4,
                         inv5,
-                        inv6,
-                        inv7,
-                        inv8
+                        // inv6,
+                        // inv7,
+                        // inv8
+                        0,
+                        0,
+                        0
                         
                     ],
                    backgroundColor: '#6C63FF',
@@ -167,9 +169,7 @@ class Chart1 extends Component {
                 scales: {
                     yAxes: [{
                         ticks: {
-                            
                             beginAtZero: true,
-
                         },
                         /*gridLines: {
                             display: false
@@ -186,9 +186,6 @@ class Chart1 extends Component {
                         gridLines: {
                             offsetGridLines: true,
                             display: false,
-                           
-
-                            
                         }
                     }]
                 },
