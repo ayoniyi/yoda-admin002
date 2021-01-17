@@ -21,6 +21,11 @@ class Login extends Component {
     handleSubmit = event => {
         event.preventDefault();
 
+        // base URL's 
+        // https://yoda-backend.herokuapp.com
+        // https://api.yodahealth.io
+
+
         // load gif
         const loaded = document.getElementById("load");
         loaded.classList.add("load-gif-on");
@@ -58,7 +63,6 @@ class Login extends Component {
             const loaded = document.getElementById("load");
             //
             loaded.classList.remove("load-gif-on");
-            //window.location = "/dashboard";
           }) 
     }
 

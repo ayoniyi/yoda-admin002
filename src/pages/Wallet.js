@@ -14,7 +14,7 @@ import Header from '../components/Header'
 //assets
 //import User from '../assets/png/user1.png'
 import Loadicon from '../assets/png/loadgr.gif'
-import Green from '../assets/svg/icons/gr-dot.svg'
+//import Green from '../assets/svg/icons/gr-dot.svg'
 
 
 class Wallet extends Component {
@@ -83,12 +83,12 @@ class Wallet extends Component {
                                     .00 
                                 </h1>
                                 <Link to="/walletfund">
-                                    <button className="card-btn"><strong>Fund Wallet</strong></button>
+                                    {/* <button className="card-btn"><strong>Fund Wallet</strong></button> */}
                                 </Link>
                             </div>
                             <div className="wallet-transactions">
-                                <h2>Transactions</h2>
-                                <div className="w-transactions-box">
+                                {/* <h2>Transactions</h2> */}
+                                {/* <div className="w-transactions-box">
                                     <div className="wt-single">
                                         <div className="wt-left">
                                             <img className="dot" src={Green} alt="dot"/>
@@ -115,7 +115,7 @@ class Wallet extends Component {
                                             <p className="mini-wt2">4:40PM</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>): 
                         ( 

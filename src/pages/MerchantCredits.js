@@ -23,10 +23,11 @@ class MerchantCredits extends Component {
     };
 
     componentDidMount() {
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzBhMjBiNGJjYzg5YzBiOTE3NThiZiIsImV4cCI6MTYzNzA2MDcxOSwiaWF0IjoxNjA1NTI0NzE5fQ.g1vRd26aCmgdFyTOtl9pVrbDQTC7T2rvta-7Rd4Ikjw";
-        /*if (token === null ) {
+        const token = localStorage.getItem("tokenset");
+        console.log(token)
+        if (token === null ) {
             window.location="/"
-        }*/
+        }
     
         let axiosConfig = {
             headers: {
@@ -37,7 +38,9 @@ class MerchantCredits extends Component {
 
         const merchantId = localStorage.getItem("merchantid")
 
-        axios.get(`https://yoda-backend.herokuapp.com/admin/merchant/${merchantId}`, axiosConfig)
+        const baseURL = localStorage.getItem("baseURL")
+
+        axios.get(`${baseURL}/admin/merchant/${merchantId}`, axiosConfig)
         .then((res1) => {
             console.log("RESPONSE RECEIVED: ", res1);
 
@@ -55,7 +58,7 @@ class MerchantCredits extends Component {
             this.setState({ isLoaded: true });
           })  
         
-          const baseURL = localStorage.getItem("baseURL")
+        //const baseURL = localStorage.getItem("baseURL")
 
         axios.get(`${baseURL}/admin/merchant/${merchantId}/credit?limit=5`, axiosConfig)
         .then((res) => {

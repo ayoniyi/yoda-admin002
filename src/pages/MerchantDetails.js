@@ -39,7 +39,9 @@ class MerchantDetails extends Component {
 
         const merchantId = localStorage.getItem("merchantid")
 
-        axios.get(`https://yoda-backend.herokuapp.com/admin/merchant/${merchantId}`, axiosConfig)
+        const baseURL = localStorage.getItem("baseURL")
+
+        axios.get(`${baseURL}/admin/merchant/${merchantId}`, axiosConfig)
         .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
 
@@ -62,6 +64,8 @@ class MerchantDetails extends Component {
             /*if( this.state.UsersA.totalDocs === 0){
                 this.setState({ nullres : "No Users Found" });
             }*/
+
+            localStorage.setItem("merchantBusiness", this.state.mBusiness)
 
           })
           .catch((err) => {

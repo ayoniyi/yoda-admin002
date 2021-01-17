@@ -36,7 +36,9 @@ class Users extends Component {
             }
         };
 
-        axios.get(`https://yoda-backend.herokuapp.com/admin/user?limit=3`, axiosConfig)
+        const baseURL = localStorage.getItem("baseURL")
+
+        axios.get(`${baseURL}/admin/user`, axiosConfig)
         .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
 

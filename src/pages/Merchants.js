@@ -48,7 +48,9 @@ class Merchants extends Component {
             }
         };
 
-        axios.get(`https://yoda-backend.herokuapp.com/admin/merchant?limit=2`, axiosConfig)
+        const baseURL = localStorage.getItem("baseURL")
+
+        axios.get(`${baseURL}/admin/merchant?limit=2`, axiosConfig)
         .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
 

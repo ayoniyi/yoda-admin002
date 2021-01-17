@@ -26,7 +26,7 @@ class UserID extends Component {
 
 
     componentDidMount() {
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzBhMjBiNGJjYzg5YzBiOTE3NThiZiIsImV4cCI6MTYzNzA2MDcxOSwiaWF0IjoxNjA1NTI0NzE5fQ.g1vRd26aCmgdFyTOtl9pVrbDQTC7T2rvta-7Rd4Ikjw";
+        const token = localStorage.getItem("tokenset");
         if (token === null ) {
             window.location="/"
         }
@@ -40,7 +40,9 @@ class UserID extends Component {
 
         const useId = localStorage.getItem("userid")
 
-        axios.get(`https://yoda-backend.herokuapp.com/admin/user/${useId}`, axiosConfig)
+        const baseURL = localStorage.getItem("baseURL")
+
+        axios.get(`${baseURL}/admin/user/${useId}`, axiosConfig)
         .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
 

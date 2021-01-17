@@ -12,7 +12,7 @@ import Header from '../components/Header'
 //assets
 import Arrowr from '../assets/svg/pg-right.svg'
 //import User from '../assets/svg/user02.svg'
-import Gdot from '../assets/svg/dot-g.svg'
+//import Gdot from '../assets/svg/dot-g.svg'
 import Loadicon from '../assets/png/loadgr.gif'
 
 class UserDetails extends Component {
@@ -39,7 +39,9 @@ class UserDetails extends Component {
 
         const useId = localStorage.getItem("userid")
 
-        axios.get(`https://yoda-backend.herokuapp.com/admin/user/${useId}`, axiosConfig)
+        const baseURL = localStorage.getItem("baseURL")
+
+        axios.get(`${baseURL}/admin/user/${useId}`, axiosConfig)
         .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
 
@@ -72,6 +74,7 @@ class UserDetails extends Component {
 
                 isLoaded: true
             });
+            console.log(this.state.uiC)
 
             this.setState({ nullres : "" })
 
@@ -163,23 +166,23 @@ class UserDetails extends Component {
                                     }, 500)}
                                 className="sub-pills">
                                     <p >Loans Collected</p>
-                                    <p className="purple">5 Loans</p>
+                                    {/* <p className="purple">5 Loans</p> */}
                                 </div>
                                 <div 
                                   onClick={(e) => setTimeout(function() {
                                     window.location ="/userloana";
                                 }, 500)}
                                 className="sub-pills">
-                                    <p>Active Loan</p>
-                                    <p className="purple">1 Loan</p>
+                                    <p>Active Loans</p>
+                                    {/* <p className="purple">1 Loan</p> */}
                                 </div>
                                 <div 
                                   onClick={(e) => setTimeout(function() {
                                     window.location ="/userloanu";
                                 }, 500)}
                                 className="sub-pills">
-                                    <p>Unpaid Loan</p>
-                                    <p className="purple">1 Loan</p>
+                                    <p>Unpaid Loans</p>
+                                    {/* <p className="purple">1 Loan</p> */}
                                 </div>
                             </div>
                         </div>
@@ -244,12 +247,25 @@ class UserDetails extends Component {
                                     <div className="iv-grid2">
                                         <p>Voter's card</p>
                                         <p>{this.state.idNo}</p>
-                                        <p className="green-txt">Verified</p>
+                                        {this.state.uic === null && (
+                                            <p className="red-txt"> Not Verified</p>    
+                                        )}
+                                        {this.state.uic !== null && (
+                                            <p className="green-txt">Verified</p>    
+                                        )}
+                                        {/* <p className="green-txt">Verified</p> */}
                                         <div className="actions">
-                                            <Link to="/userid">
-                                            <button className="iv-btn">View</button>
-                                            </Link>
-                                            <button className="iv-btn">Download</button>
+                                            {this.state.uic !== null && (
+                                                 <Link to="/userid">
+                                                 <button className="iv-btn">View</button>
+                                                 </Link>
+                                            )}
+                                            {this.state.uic !== null && (
+                                                 <a href={this.state.uiC} download>
+                                                <button className="iv-btn">Download</button>
+                                                </a>
+                                            )}
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -257,7 +273,7 @@ class UserDetails extends Component {
                         </div>
                         <div className="userdetail-box4">
                         <div className="acti-container">
-                            <h2> Activities </h2>
+                           {/*<h2> Activities </h2>
                             <div className="acti-box">
                                     <div className="acti-single">
                                         <div className="dot-contain">
@@ -268,8 +284,8 @@ class UserDetails extends Component {
                                             <p className="small-txt">Today</p>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                           </div>*/}
+                        </div>
                         </div>
                     </div>): ( 
                                 <div className="load-animation">

@@ -23,10 +23,12 @@ class MerchantDebits extends Component {
     };
 
     componentDidMount() {
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzBhMjBiNGJjYzg5YzBiOTE3NThiZiIsImV4cCI6MTYzNzA2MDcxOSwiaWF0IjoxNjA1NTI0NzE5fQ.g1vRd26aCmgdFyTOtl9pVrbDQTC7T2rvta-7Rd4Ikjw";
-        /*if (token === null ) {
+        const token = localStorage.getItem("tokenset");
+        console.log(token)
+        if (token === null ) {
             window.location="/"
-        }*/
+        }
+    
     
         let axiosConfig = {
             headers: {
@@ -44,7 +46,7 @@ class MerchantDebits extends Component {
             console.log("RESPONSE RECEIVED: ", res);
 
             this.setState({ 
-                mBusiness: res.data.data.transactions.docs[0].merchant.name,
+                mBusiness: localStorage.getItem("merchantBusiness"),
                 DebitsA: res.data.data.transactions.docs,
                 isLoaded: true
             });

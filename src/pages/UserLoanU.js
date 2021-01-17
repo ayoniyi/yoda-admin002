@@ -23,10 +23,11 @@ class UserLoanU extends Component {
     };
 
     componentDidMount() {
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMzBhMjBiNGJjYzg5YzBiOTE3NThiZiIsImV4cCI6MTYzNzA2MDcxOSwiaWF0IjoxNjA1NTI0NzE5fQ.g1vRd26aCmgdFyTOtl9pVrbDQTC7T2rvta-7Rd4Ikjw";
-        /*if (token === null ) {
+        const token = localStorage.getItem("tokenset");
+        //console.log(token)
+        if (token === null ) {
             window.location="/"
-        }*/
+        }
     
         let axiosConfig = {
             headers: {
@@ -37,8 +38,10 @@ class UserLoanU extends Component {
 
         const userId = localStorage.getItem("userid")
 
+        const baseURL = localStorage.getItem("baseURL")
 
-        axios.get(`https://yoda-backend.herokuapp.com/admin/user/${userId}/credit?limit=5`, axiosConfig)
+
+        axios.get(`${baseURL}/admin/user/${userId}/credit?limit=5`, axiosConfig)
         .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
 
