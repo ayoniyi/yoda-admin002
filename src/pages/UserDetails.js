@@ -11,7 +11,7 @@ import Header from '../components/Header'
 
 //assets
 import Arrowr from '../assets/svg/pg-right.svg'
-//import User from '../assets/svg/user02.svg'
+import User from '../assets/svg/user02.svg'
 //import Gdot from '../assets/svg/dot-g.svg'
 import Loadicon from '../assets/png/loadgr.gif'
 
@@ -116,7 +116,13 @@ class UserDetails extends Component {
                         <div className="userdetail-box1">
                         <div className="ud-box1-main">
                             <div className="ud-sbox1">
-                                <img className="userde" src={this.state.uImage} alt="user"  />
+                                {(this.state.uImage !== null || this.state.uImage !== "" ) && (
+                                     <img className="userde" src={this.state.uImage} alt="user"  />    
+                                )}
+                                {(this.state.uImage === null || this.state.uImage === "" ) && (
+                                     <img className="userde" src={User} alt="user"  />    
+                                )}
+                                {/* <img className="userde" src={this.state.uImage} alt="user"  /> */}
                             </div>
                             <div className="ud-sbox2">
                                 <div className="sbox-grid1">
