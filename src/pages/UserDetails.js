@@ -11,7 +11,7 @@ import Header from '../components/Header'
 
 //assets
 import Arrowr from '../assets/svg/pg-right.svg'
-import User from '../assets/svg/user02.svg'
+import User from '../assets/png/user0.png'
 //import Gdot from '../assets/svg/dot-g.svg'
 import Loadicon from '../assets/png/loadgr.gif'
 
@@ -46,6 +46,7 @@ class UserDetails extends Component {
             console.log("RESPONSE RECEIVED: ", res);
 
             this.setState({ 
+                userOb: res.data.data.user,
                 uImage: res.data.data.user.image,
                 uName: res.data.data.user.firstName+" "+res.data.data.user.lastName,
                 uGender: res.data.data.user.gender,
@@ -58,23 +59,26 @@ class UserDetails extends Component {
                 uBalance: Math.round(res.data.data.user.balance),
                 uDob: res.data.data.user.dob,
                 // nok
-                nAddress: res.data.data.user.nok.address,
-                nMobile: res.data.data.user.nok.mobile,
-                nName: res.data.data.user.nok.name,
-                nRel: res.data.data.user.nok.relationship,
+                // nAddress: res.data.data.user.nok.address,
+                // nMobile: res.data.data.user.nok.mobile,
+                // nName: res.data.data.user.nok.name,
+                // nRel: res.data.data.user.nok.relationship,
+
                 // employment info
-                eCompany: res.data.data.user.employment.companyName,
-                eAddress: res.data.data.user.employment.employerAddress,
-                eDate: res.data.data.user.employment.employmentDate,
-                eSalary: res.data.data.user.employment.monthlySalary,
-                ePayDay: res.data.data.user.employment.payDay,
+                // eCompany: res.data.data.user.employment.companyName,
+                // eAddress: res.data.data.user.employment.employerAddress,
+                // eDate: res.data.data.user.employment.employmentDate,
+                // eSalary: res.data.data.user.employment.monthlySalary,
+                // ePayDay: res.data.data.user.employment.payDay,
+
                  // ID
-                 uiC: res.data.data.user.identity.url,
-                 idNo: res.data.data.user.identity.number,
+                //  uiC: res.data.data.user.identity.url,
+                //  idNo: res.data.data.user.identity.number,
 
                 isLoaded: true
             });
-            console.log(this.state.uiC)
+           
+            localStorage.setItem("uNameA", this.state.uName)
 
             this.setState({ nullres : "" })
 
@@ -116,13 +120,13 @@ class UserDetails extends Component {
                         <div className="userdetail-box1">
                         <div className="ud-box1-main">
                             <div className="ud-sbox1">
-                                {(this.state.uImage !== null || this.state.uImage !== "" ) && (
+                                {this.state.uImage !== "" && (
                                      <img className="userde" src={this.state.uImage} alt="user"  />    
                                 )}
-                                {(this.state.uImage === null || this.state.uImage === "" ) && (
+                                {this.state.uImage === ""  && (
                                      <img className="userde" src={User} alt="user"  />    
                                 )}
-                                {/* <img className="userde" src={this.state.uImage} alt="user"  /> */}
+                                 {/* <img className="userde" src={User} alt="user"  />  */}
                             </div>
                             <div className="ud-sbox2">
                                 <div className="sbox-grid1">
@@ -157,7 +161,10 @@ class UserDetails extends Component {
                                 </div>
                                 <div className="sbox-grid2n">
                                     <p>Address</p>
-                                    <p><strong>{this.state.uAddress}</strong></p>
+                                    {/* <p><strong>{this.state.userOb.email}</strong></p> */}
+                                    {this.state.userOb.address !== undefined && (
+                                        <p><strong>{this.state.userOb.address}</strong></p>   
+                                    )} 
                                 </div>
                             </div>
                             </div>
@@ -193,54 +200,62 @@ class UserDetails extends Component {
                             </div>
                         </div>
                         <div className="userdetail-boxes2">
+                        {this.state.userOb.nok !== undefined && ( 
                             <div className="nk-container">
                                 <h2>Next of Kin</h2>
                                 <div className="nk-box padd">
                                     <div className="detailgrids-2">
                                     <p>Name</p>
-                                    <p><strong>{this.state.nName}</strong></p>  
+                                    {this.state.userOb.nok !== undefined && (
+                                        <p><strong>{this.state.userOb.nok.name}</strong></p>   
+                                    )}  
+                                    {/* <p><strong>{this.state.userOb.nok.name}</strong></p>   */}
                                     </div>
                                     <div className="detailgrids-2">
                                     <p>Relationship</p>
-                                    <p><strong>{this.state.nRel}</strong></p>  
+                                    <p><strong>{this.state.userOb.nok.relationship}</strong></p>  
                                     </div>
                                     <div className="detailgrids-2">
                                     <p>Telephone</p>
-                                    <p><strong>{this.state.nMobile}</strong></p>  
+                                    <p><strong>{this.state.userOb.nok.mobile}</strong></p>  
                                     </div>
                                     <div className="detailgrids-2n">
                                     <p>Address</p>
-                                    <p><strong>{this.state.nAddress}</strong></p>  
+                                    <p><strong>{this.state.userOb.nok.address}</strong></p>  
                                     </div>
                                 </div>
                             </div>
+                        )}
+                        {this.state.userOb.employment !== undefined && ( 
                             <div className="ei-container">
                                 <h2>Employment Information </h2>
                                 <div className="ei-box">
                                     <div className="detailgrids-2">
                                         <p>Company name</p>
-                                        <p><strong>{this.state.eCompany}</strong></p>  
+                                        <p><strong>{this.state.userOb.employment.companyName}</strong></p>  
                                     </div>
                                     <div className="detailgrids-2">
                                         <p>Monthly salary</p>
-                                        <p><strong>N{this.state.eSalary}</strong></p>  
+                                        <p><strong>N{this.state.userOb.employment.monthlySalary}</strong></p>  
                                     </div>
                                     <div className="detailgrids-2">
                                         <p>Date of Employment</p>
-                                        <p><strong>{this.state.eDate}</strong></p>  
+                                        <p><strong>{this.state.userOb.employment.employmentDate}</strong></p>  
                                     </div>
                                     <div className="detailgrids-2">
                                         <p>Pay Day</p>
-                                        <p><strong>{this.state.ePayDay}</strong></p>  
+                                        <p><strong>{this.state.userOb.employment.payDay}</strong></p>  
                                     </div>
                                     <div className="detailgrids-2n">
                                         <p>Employer address</p>
-                                        <p><strong>{this.state.eAddress}</strong></p>  
+                                        <p><strong>{this.state.userOb.employment.employerAddress}</strong></p>  
                                     </div>
                                 </div>
                             </div>
+                        )}
                         </div>
                         <div className="userdetail-box3">
+                        {this.state.userOb.identity !== undefined && ( 
                             <div className="iv-container">
                                 <h2>Identity Verification</h2>
                                 <div className="iv-box">
@@ -252,22 +267,22 @@ class UserDetails extends Component {
                                     </div>
                                     <div className="iv-grid2">
                                         <p>Voter's card</p>
-                                        <p>{this.state.idNo}</p>
-                                        {this.state.uic === null && (
+                                        <p>{this.state.userOb.identity.number}</p>
+                                        {this.state.userOb.identity.url === null && (
                                             <p className="red-txt"> Not Verified</p>    
                                         )}
-                                        {this.state.uic !== null && (
+                                        {this.state.userOb.identity.url !== null && (
                                             <p className="green-txt">Verified</p>    
                                         )}
-                                        {/* <p className="green-txt">Verified</p> */}
+                                      
                                         <div className="actions">
-                                            {this.state.uic !== null && (
+                                            {this.state.userOb.identity.url !== null && (
                                                  <Link to="/userid">
                                                  <button className="iv-btn">View</button>
                                                  </Link>
                                             )}
-                                            {this.state.uic !== null && (
-                                                 <a href={this.state.uiC} download>
+                                            {this.state.userOb.identity.url !== null && (
+                                                 <a href={this.state.userOb.identity.url} download>
                                                 <button className="iv-btn">Download</button>
                                                 </a>
                                             )}
@@ -276,6 +291,7 @@ class UserDetails extends Component {
                                     </div>
                                 </div>
                             </div>
+                        )}
                         </div>
                         <div className="userdetail-box4">
                         <div className="acti-container">

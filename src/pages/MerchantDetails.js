@@ -11,8 +11,8 @@ import Header from '../components/Header'
 
 //assets
 import Arrowr from '../assets/svg/pg-right.svg'
-//import User from '../assets/svg/user02.svg'
-import Gdot from '../assets/svg/dot-g.svg'
+import User from '../assets/png/user0.png'
+// import Gdot from '../assets/svg/dot-g.svg'
 import Loadicon from '../assets/png/loadgr.gif'
 
 class MerchantDetails extends Component {
@@ -101,7 +101,13 @@ class MerchantDetails extends Component {
                         <div className="userdetail-box1">
                         <div className="ud-box1-main">
                             <div className="ud-sbox1">
-                                <img className="userde" src={this.state.mImage} alt="user"  />
+                                {this.state.mImage !== "" && (
+                                     <img className="userde" src={this.state.mImage} alt="user"  />    
+                                )}
+                                {this.state.mImage === "" && (
+                                     <img className="userde" src={User} alt="user"  />    
+                                )}
+                                {/* <img className="userde" src={this.state.mImage} alt="user"  /> */}
                             </div>
                             <div className="ud-sbox2">
                                 <div className="sbox-grid1">
@@ -145,9 +151,9 @@ class MerchantDetails extends Component {
                        
                           
                         <div className="userdetail-box4">
-                        <div className="acti-container">
-                            <h2> Activities </h2>
-                            <div className="acti-box">
+                            {/* <div className="acti-container">
+                                <h2> Activities </h2>
+                                <div className="acti-box">
                                     <div className="acti-single">
                                         <div className="dot-contain">
                                             <img src={Gdot} alt="dot" />
@@ -158,7 +164,7 @@ class MerchantDetails extends Component {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>): ( 
                                 <div className="load-animation">

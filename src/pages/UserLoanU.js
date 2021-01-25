@@ -70,6 +70,8 @@ class UserLoanU extends Component {
     render () {
 
         console.log( localStorage.getItem("userid" ))
+
+        const userNameA = localStorage.getItem("uNameA")
         
         return (
             <div>
@@ -85,7 +87,7 @@ class UserLoanU extends Component {
                                 </Link>
                                 <img src={Arrowr} alt="right"/>
                                 <Link to="userdetails">
-                                <p className="p-active">{this.state.uName}</p>
+                                <p className="p-active">{userNameA}</p>
                                 </Link>
                                 <img src={Arrowr} alt="right"/>
                                 <p>Unpaid Loan</p>

@@ -20,7 +20,7 @@ import blue1 from '../assets/svg/icons/blue1.svg'
 import red1 from '../assets/svg/icons/red1.svg'
 import yellow1 from '../assets/svg/icons/yellow1.svg'
 import green1 from '../assets/svg/icons/green1.svg'
-import locations from '../assets/png/locations.png'
+// import locations from '../assets/png/locations.png'
 import Loadicon from '../assets/png/loadgr.gif'
 
 
@@ -34,7 +34,7 @@ class Overview extends Component {
 
     componentDidMount() {
         const token = localStorage.getItem("tokenset");
-        console.log(token)
+        //console.log(token)
         if (token === null ) {
             window.location="/"
         }
@@ -173,6 +173,12 @@ class Overview extends Component {
                                 <div className="line"></div>
                                 <div className="rightbox-a">
                                     <p className="boxtl-small">Total Amount Invested:</p>
+                                    {this.state.totalInvested === undefined && (
+                                       <p>
+                                       <strong>₦0.00</strong>
+                                       </p> 
+                                    )}
+                                    {this.state.totalInvested !== undefined && (
                                     <p>
                                         <strong>
                                         <NumberFormat value={this.state.totalInvested} 
@@ -181,9 +187,16 @@ class Overview extends Component {
                                         .00
                                         </strong>
                                     </p>
+                                    )}
                                 </div>
                                 <div className="rightbox-a">
                                     <p className="boxtl-small">Total Return:</p>
+                                    {this.state.totalReturns === undefined && (
+                                       <p>
+                                       <strong>₦0.00</strong>
+                                       </p> 
+                                    )}
+                                    {this.state.totalReturns !== undefined && (
                                     <p>
                                         <strong>
                                         <NumberFormat value={this.state.totalReturns} 
@@ -192,9 +205,16 @@ class Overview extends Component {
                                         .00
                                         </strong>
                                     </p>
+                                    )}
                                 </div>
                                 <div className="rightbox-a">
                                     <p className="boxtl-small">Profit:</p>
+                                    {this.state.totalProfit === undefined && (
+                                       <p>
+                                       <strong>₦0.00</strong>
+                                       </p> 
+                                    )}
+                                    {this.state.totalProfit !== undefined && (
                                     <p>
                                         <strong>
                                         <NumberFormat value={this.state.totalProfit} 
@@ -203,9 +223,16 @@ class Overview extends Component {
                                         .00
                                         </strong>
                                     </p>
+                                    )}
                                 </div>
                                 <div className="righta-bottom">
                                     <p className="">Outstanding balance</p>
+                                    {this.state.outsBal === undefined && (
+                                       <p>
+                                       <strong>₦0.00</strong>
+                                       </p> 
+                                    )}
+                                    {this.state.outsBal !== undefined && (
                                     <p>
                                         <strong>
                                         <NumberFormat value={this.state.outsBal} 
@@ -214,6 +241,7 @@ class Overview extends Component {
                                         .00
                                         </strong>
                                     </p>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -223,6 +251,12 @@ class Overview extends Component {
                                         <p>Loan Amt. Available</p>
                                         <img src={blue1} alt="icon" />
                                     </div>
+                                    {this.state.amtAvailable === undefined && (
+                                       <p>
+                                       <strong>₦0.00</strong>
+                                       </p> 
+                                    )}
+                                    {this.state.amtAvailable !== undefined && (
                                     <p>
                                         <strong>
                                         <NumberFormat value={this.state.amtAvailable} 
@@ -231,12 +265,19 @@ class Overview extends Component {
                                         .00
                                         </strong>
                                     </p>
+                                    )}
                                 </div>
                                 <div className="overview-4box">
                                     <div className="box4-top">
                                         <p>Loan Amt. Collected</p>
                                         <img src={green1} alt="icon" />
                                     </div>
+                                    {this.state.amtCollected === undefined && (
+                                       <p>
+                                       <strong>₦0.00</strong>
+                                       </p> 
+                                    )}
+                                    {this.state.amtCollected !== undefined && (
                                     <p>
                                         <strong>
                                         <NumberFormat value={this.state.amtCollected} 
@@ -245,12 +286,19 @@ class Overview extends Component {
                                         .00
                                         </strong>
                                     </p>
+                                    )}
                                 </div>
                                 <div className="overview-4box">
                                     <div className="box4-top">
                                         <p> Amt. Not Paid</p>
                                         <img src={red1} alt="icon" />
                                     </div>
+                                    {this.state.amtDue === undefined && (
+                                       <p>
+                                       <strong>₦0.00</strong>
+                                       </p> 
+                                    )}
+                                    {this.state.amtDue !== undefined && (
                                     <p>
                                         <strong>
                                         <NumberFormat value={this.state.amtDue} 
@@ -259,12 +307,19 @@ class Overview extends Component {
                                         .00
                                         </strong>
                                     </p>
+                                    )}
                                 </div>
                                 <div className="overview-4box-l">
                                     <div className="box4-top">
                                         <p>Amt. Under Process</p>
                                         <img src={yellow1} alt="icon" />
                                     </div>
+                                    {this.state.amtProcess === undefined && (
+                                        <p>
+                                        <strong>₦0.00</strong>
+                                        </p> 
+                                    )}
+                                    {this.state.amtProcess !== undefined && (
                                     <p>
                                         <strong>
                                         <NumberFormat value={this.state.amtProcess} 
@@ -273,6 +328,7 @@ class Overview extends Component {
                                         .00
                                         </strong>
                                     </p>
+                                    )}
                                 </div>
                         </div>
                         <div className="overview-boxesb animate__animated animate__fadeIn animate__slow">
@@ -290,12 +346,44 @@ class Overview extends Component {
                                     </p>
                                 </div>
                             </div>
-                            <div className="overviewboxb-right">
+                            {/* <div className="overviewboxb-right">
                                 <p>User Locations</p>
                                 <img src={locations} alt="locations"/>
+                            </div> */}
+                            <div className="overviewboxb-right animate__animated animate__fadeIn animate__slow">
+                                <div className="overc-top">
+                                    <p>Upcoming Payments</p>
+                                    <Link to="loansall">
+                                    <p className="a-link">View All</p>
+                                    </Link>
+                                </div>
+                                <div className="overc-table">
+                                    <div className="overc-table-top">
+                                        <p>Name</p>
+                                        <p>Loan Terms</p>
+                                        <p>Interest(%)</p>
+                                        <p>Due date</p>
+                                        <p>Status</p>
+                                    </div>
+                                    <div className="overc-table-body">
+                                    {this.state.LoansA.map (loans1 =>
+                                        <div key={loans1._id}>
+                                        {loans1.paybackDate.substring(0,10) >= today1 && ( 
+                                        <div className="overc-single" >
+                                            <p>{loans1.customer.firstName + " " + loans1.customer.lastName}</p>
+                                            <p>1 Month</p>
+                                            <p>₦{/*10.75%*/}{loans1.paybackInterest}</p>
+                                            <p>{loans1.paybackDate.substring(0,10)}</p>
+                                            <p>Pending</p>
+                                        </div>
+                                        )}
+                                        </div>
+                                    )}   
+                                    </div>
+                                </div>
                             </div>
                         </div>  
-                        <div className="overview-c animate__animated animate__fadeIn animate__slow">
+                        {/* <div className="overview-c animate__animated animate__fadeIn animate__slow">
                             <div className="overc-top">
                                 <p>Upcoming Payments</p>
                                 <Link to="loansall">
@@ -317,7 +405,7 @@ class Overview extends Component {
                                     <div className="overc-single" >
                                         <p>{loans1.customer.firstName + " " + loans1.customer.lastName}</p>
                                         <p>1 Month</p>
-                                        <p>₦{/*10.75%*/}{loans1.paybackInterest}</p>
+                                        <p>₦{loans1.paybackInterest}</p>
                                         <p>{loans1.paybackDate.substring(0,10)}</p>
                                         <p>Pending</p>
                                     </div>
@@ -326,7 +414,7 @@ class Overview extends Component {
                                 )}   
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         </div>): ( 
                                 <div className="load-animation">
                                     <img  className="icon-load" src={Loadicon}  alt="loading"/> 

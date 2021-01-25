@@ -79,6 +79,8 @@ class UserLoanA extends Component {
 
         let today1 = yyyy + '-' + mm + '-' + dd ;
         console.log(today1)
+
+        const userNameA = localStorage.getItem("uNameA")
         
         return (
             <div>
@@ -94,7 +96,7 @@ class UserLoanA extends Component {
                                 </Link>
                                 <img src={Arrowr} alt="right"/>
                                 <Link to="userdetails">
-                                <p className="p-active">{this.state.uName}</p>
+                                <p className="p-active">{userNameA}</p>
                                 </Link>
                                 <img src={Arrowr} alt="right"/>
                                 <p>Active Loan</p>

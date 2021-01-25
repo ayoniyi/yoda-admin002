@@ -11,7 +11,7 @@ import Sidemenu4 from '../components/menus/SideMenu4'
 import Header from '../components/Header'
 
 //assets
-//import User from '../assets/png/user1.png'
+import User from '../assets/png/user0.png'
 import Loadicon from '../assets/png/loadgr.gif'
 import cancel from '../assets/svg/cancel2.svg'
 
@@ -247,7 +247,13 @@ class Merchants extends Component {
                                     window.location ="/merchantdetails";
                                 }, 500)}
                                 key={merchant1._id}>
-                                    <img className="merchant-img" src={merchant1.image} alt="user" />
+                                     {(merchant1.image === "" || merchant1.image === null)  && (
+                                        <img className="user-img" src={User} alt="user"  />    
+                                    )}
+                                     {merchant1.image !== ""  && (
+                                        <img className="user-img" src={merchant1.image} alt="user"  />    
+                                    )}
+                                    {/* <img className="merchant-img" src={merchant1.image} alt="user" /> */}
                                     <p>{merchant1.businessName}</p>
                                     <p>{merchant1.mobile}</p>
                                     <p>{merchant1.email}</p>

@@ -10,7 +10,7 @@ import Sidemenu3 from '../components/menus/SideMenu3'
 import Header from '../components/Header'
 
 //assets
-import User from '../assets/png/user1.png'
+import User from '../assets/png/user0.png'
 import Loadicon from '../assets/png/loadgr.gif'
 
 class Users extends Component {
@@ -229,12 +229,14 @@ class Users extends Component {
                                         +setTimeout(window.location ="/ridedetails", 10000)}>
                                         View
                                     </button>*/}
-                                   {(this.state.uImage === null || this.state.uImage === "" ) && (
+                                    
+                                    {(user1.image === "" || user1.image === null)  && (
                                         <img className="user-img" src={User} alt="user"  />    
                                     )}
-                                    {(this.state.uImage !== null || this.state.uImage !== "" ) && (
+                                    {user1.image !== ""  && (
                                         <img className="user-img" src={user1.image} alt="user"  />    
                                     )}
+                                    
                                     <p>{user1.firstName+" "+user1.lastName}</p>
                                     <p>{user1.mobile}</p>
                                     <p>{user1.email}</p>
