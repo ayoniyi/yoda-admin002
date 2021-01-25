@@ -98,8 +98,8 @@
 .userde{
     border-radius: 50%;
     height: 189px;
-    width: 189px;
-    object-fit: cover;
+    width: 169px;
+    object-fit: fill;
 }
 .ud-sbox2{
     width: 30%;
