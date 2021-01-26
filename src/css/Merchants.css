@@ -233,7 +233,7 @@ input[type="radio"]{
     display: flex;
 }
 .pb-cancel{
-    border: 1px solid #6548C3;
+    border: 1px solid #111111;
     background: #fff;
     border-radius: 10px;
     padding: .5em 1.4em;
@@ -244,6 +244,15 @@ input[type="radio"]{
 .pb-submit{
     border: 0;
     background: #6548C3;
+    color: #fff;
+    border-radius: 10px;
+    padding: .5em 1.4em;
+    width: 205.5px;
+    height: 45px;
+}
+.pb-submit-g{
+    border: 0;
+    background: #04ac12;
     color: #fff;
     border-radius: 10px;
     padding: .5em 1.4em;
