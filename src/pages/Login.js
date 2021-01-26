@@ -36,39 +36,45 @@ class Login extends Component {
             password:this.state.password
         }
 
-        axios.post(`https://api.yodahealth.io/admin/auth`, user)
-        .then((res) => {
-               
-            console.log("RESPONSE RECEIVED: ", res);
+        if(navigator.onLine === true ) {
 
-            this.setState({ authRes: res.data.message });
-            console.log(this.state.authRes)
-            
-            if (this.state.authRes === "Admin authenticated successfully.")  {
+            axios.post(`https://yoda-backend.herokuapp.com/admin/auth`, user)
+            .then((res) => {
                 
-               localStorage.setItem("tokenset", res.data.data.admin.token);
-               
-               localStorage.setItem("baseURL", "https://api.yodahealth.io")
-               localStorage.setItem("adminId", res.data.data.admin.id)
-               window.location = "/overview";
-               
-            }
-          
-          })
-          .catch((err) => {
-            console.log("AXIOS ERROR: ", err);
-           // console.log(err.data.message);
+                console.log("RESPONSE RECEIVED: ", res);
+
+                this.setState({ authRes: res.data.message });
+                console.log(this.state.authRes)
+                
+                if (this.state.authRes === "Admin authenticated successfully.")  {
+                    
+                localStorage.setItem("tokenset", res.data.data.admin.token);
+                
+                localStorage.setItem("baseURL", "https://yoda-backend.herokuapp.com")
+                localStorage.setItem("adminId", res.data.data.admin.id)
+                window.location = "/overview";
+                
+                }
+            
+            })
+            .catch((err) => {
+                console.log("AXIOS ERROR: ", err);
            
-            this.setState({ incrct: "Incorrect Username / Password Combination." });
-            const loaded = document.getElementById("load");
-            //
-            loaded.classList.remove("load-gif-on");
-          }) 
+                this.setState({ incrct: "Incorrect Username / Password Combination." });
+                const loaded = document.getElementById("load");
+                //
+                loaded.classList.remove("load-gif-on");
+            }) 
+        } else {
+            this.setState({ incrct: "Check your network connection" }); 
+        } 
     }
 
     render () {
 
         localStorage.removeItem("tokenset");
+
+        // console.log(navigator.onLine)
 
         return (
             <div>

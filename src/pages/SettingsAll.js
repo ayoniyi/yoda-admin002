@@ -55,7 +55,9 @@ class SettingsAll extends Component {
             }
         };
 
-        axios.get(`https://yoda-backend.herokuapp.com/admin/`, axiosConfig)
+        const baseURL = localStorage.getItem("baseURL")
+
+        axios.get(`${baseURL}/admin/`, axiosConfig)
         .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
 
@@ -122,7 +124,9 @@ class SettingsAll extends Component {
 
         this.setState({ isLoaded: false })
 
-        axios.get(`https://yoda-backend.herokuapp.com/admin/search?query=${searchparam}`, axiosConfig)
+        const baseURL = localStorage.getItem("baseURL")
+
+        axios.get(`${baseURL}/admin/search?query=${searchparam}`, axiosConfig)
         .then((res) => {
 
             this.setState({ AdminsA: [] })
@@ -170,7 +174,9 @@ class SettingsAll extends Component {
 
         const adminsId = this.state.memberid
 
-        axios.put(`https://yoda-backend.herokuapp.com/admin/${adminsId}`, adminUpdate, axiosConfig)
+        const baseURL = localStorage.getItem("baseURL")
+
+        axios.put(`${baseURL}/admin/${adminsId}`, adminUpdate, axiosConfig)
         .then((res) => {
         
             console.log(res.data.data)
@@ -212,7 +218,9 @@ class SettingsAll extends Component {
 
         const adminsId = this.state.memberid
 
-        axios.put(`https://yoda-backend.herokuapp.com/admin/${adminsId}`, adminUpdate, axiosConfig)
+        const baseURL = localStorage.getItem("baseURL")
+
+        axios.put(`${baseURL}/admin/${adminsId}`, adminUpdate, axiosConfig)
         .then((res) => {
         
             console.log(res.data.data)
@@ -252,7 +260,9 @@ class SettingsAll extends Component {
 
         const adminsId = this.state.memberid
 
-        axios.put(`https://yoda-backend.herokuapp.com/admin/${adminsId}`, adminUpdate, axiosConfig)
+        const baseURL = localStorage.getItem("baseURL")
+
+        axios.put(`${baseURL}/admin/${adminsId}`, adminUpdate, axiosConfig)
         .then((res) => {
         
             console.log(res.data.data)

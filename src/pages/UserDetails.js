@@ -14,11 +14,13 @@ import Arrowr from '../assets/svg/pg-right.svg'
 import User from '../assets/png/user0.png'
 //import Gdot from '../assets/svg/dot-g.svg'
 import Loadicon from '../assets/png/loadgr.gif'
+import cancel from '../assets/svg/cancel2.svg'
 
 class UserDetails extends Component {
 
     state = {
         isLoaded: false,
+        disClicked: false,
     };
 
 
@@ -47,6 +49,7 @@ class UserDetails extends Component {
 
             this.setState({ 
                 userOb: res.data.data.user,
+                uId1:res.data.data.user._id,
                 uImage: res.data.data.user.image,
                 uName: res.data.data.user.firstName+" "+res.data.data.user.lastName,
                 uGender: res.data.data.user.gender,
@@ -95,24 +98,92 @@ class UserDetails extends Component {
           })  
     }
 
+    handleDisable = event => {
+
+        event.preventDefault();
+
+        const token = localStorage.getItem("tokenset");
+
+        let axiosConfig = {
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json', 
+            }
+        };
+
+        const userId = this.state.uId1
+
+        const baseURL = localStorage.getItem("baseURL")
+
+        axios.put(`${baseURL}/admin/user/${userId}/disable`, axiosConfig)
+        .then((res) => {
+        
+            console.log("RESPONSE RECEIVED: ", res);
+
+            // window.location = "/users";
+
+        })
+        .catch((err) => {
+            console.log("AXIOS ERROR: ", err);
+            
+        }) 
+    }
+
     render () {
 
-        console.log( localStorage.getItem("userid" ))
+        //console.log( localStorage.getItem("userid" ))
         
         return (
             <div>
                 <Header />
                 <Sidemenu3 />
+
+                {this.state.disClicked ? 
+                    <div>
+                        <div className="overlay animate__animated animate__fadeIn "></div>
+                        <section className="popup ">
+                            <div className="popup-box2 animate__animated animate__slideInUp ">
+                                <div className="pb-top">
+                                    <h1 className="pb-title">Disable {this.state.uName} ?</h1>
+                                    <img className="click" onClick={() => this.setState({disClicked: false})}
+                                    src={cancel} alt="x" />
+                                </div>
+                                <p className="pb-in">Are you sure you want to disable this user?</p>
+                                <form>
+                                    
+                                    <div className="pb-btns">
+                                        <button onClick={() => this.setState({disClicked: false})} 
+                                        className="pb-cancel">
+                                            Cancel
+                                        </button>
+                                        <button className="pb-submit-red" onClick={this.handleDisable}>
+                                            Disable
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                : null}
+
                <section className="users">
                <div className="users-content animate__animated animate__fadeIn animate__slow">
                     <div className="userdetail-top">
-                        <h1 className="page-title">Users</h1>
-                        <div className="pg-nav1">
-                            <Link to="/users">
-                            <p className="p-active">Users</p>
-                            </Link>
-                            <img src={Arrowr} alt="right"/>
-                            <p className="animate__animated animate__fadeIn animate__slow">{this.state.uName}</p>
+                        <div className="left-detail">
+                            <h1 className="page-title">Users</h1>
+                            <div className="pg-nav1">
+                                <Link to="/users">
+                                <p className="p-active">Users</p>
+                                </Link>
+                                <img src={Arrowr} alt="right"/>
+                                <p className="animate__animated animate__fadeIn animate__slow">{this.state.uName}</p>
+                            </div>
+                        </div>
+                        <div className="right-detail">
+                           <button className="dis-user"
+                           onClick={() => this.setState({disClicked: true}) }>
+                               Disable User
+                            </button>
                         </div>
                     </div>
                     {this.state.isLoaded ?  (
