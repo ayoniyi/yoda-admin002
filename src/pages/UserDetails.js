@@ -21,6 +21,7 @@ class UserDetails extends Component {
     state = {
         isLoaded: false,
         disClicked: false,
+        enClicked: false,
     };
 
 
@@ -84,6 +85,10 @@ class UserDetails extends Component {
             localStorage.setItem("uNameA", this.state.uName)
 
             this.setState({ nullres : "" })
+           
+            this.setState({ disA : this.state.userOb.disabled })
+            console.log(this.state.disA)
+            
 
             /*if( this.state.UsersA.totalDocs === 0){
                 this.setState({ nullres : "No Users Found" });
@@ -102,6 +107,10 @@ class UserDetails extends Component {
 
         event.preventDefault();
 
+        const userUpdate = {
+             "disabled" : true
+        }
+
         const token = localStorage.getItem("tokenset");
 
         let axiosConfig = {
@@ -115,12 +124,51 @@ class UserDetails extends Component {
 
         const baseURL = localStorage.getItem("baseURL")
 
-        axios.put(`${baseURL}/admin/user/${userId}/disable`, axiosConfig)
+        axios.put(`${baseURL}/admin/user/${userId}/disable`, userUpdate, axiosConfig)
+        .then((res) => {
+        
+            console.log("RESPONSE RECEIVED: ", res);
+
+            window.location.reload()
+
+            this.setState({disClicked: false})
+
+        })
+        .catch((err) => {
+            console.log("AXIOS ERROR: ", err);
+            
+        }) 
+    }
+    handleEnable = event => {
+
+        event.preventDefault();
+
+        const userUpdate = {
+            "disabled" : false
+        }
+
+        const token = localStorage.getItem("tokenset");
+
+        let axiosConfig = {
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json', 
+            }
+        };
+
+        const userId = this.state.uId1
+
+        const baseURL = localStorage.getItem("baseURL")
+
+        axios.put(`${baseURL}/admin/user/${userId}/disable`, userUpdate, axiosConfig)
         .then((res) => {
         
             console.log("RESPONSE RECEIVED: ", res);
 
             // window.location = "/users";
+            window.location.reload()
+
+            this.setState({enClicked: false})
 
         })
         .catch((err) => {
@@ -166,6 +214,34 @@ class UserDetails extends Component {
                     </div>
                 : null}
 
+                {this.state.enClicked ? 
+                    <div>
+                        <div className="overlay animate__animated animate__fadeIn "></div>
+                        <section className="popup ">
+                            <div className="popup-box2 animate__animated animate__slideInDown ">
+                                <div className="pb-top">
+                                    <h1 className="pb-title">Enable {this.state.uName} ?</h1>
+                                    <img className="click" onClick={() => this.setState({enClicked: false})}
+                                    src={cancel} alt="x" />
+                                </div>
+                                <p className="pb-in">Are you sure you want to enable this user?</p>
+                                <form>
+                                    
+                                    <div className="pb-btns">
+                                        <button onClick={() => this.setState({enClicked: false})} 
+                                        className="pb-cancel">
+                                            Cancel
+                                        </button>
+                                        <button className="pb-submit-g" onClick={this.handleEnable}>
+                                            Enable
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                : null}
+
                <section className="users">
                <div className="users-content animate__animated animate__fadeIn animate__slow">
                     <div className="userdetail-top">
@@ -180,10 +256,19 @@ class UserDetails extends Component {
                             </div>
                         </div>
                         <div className="right-detail">
+                            {this.state.disA !== true && (
                            <button className="dis-user"
                            onClick={() => this.setState({disClicked: true}) }>
                                Disable User
                             </button>
+                            )}
+                            
+                             {this.state.disA === true && (
+                           <button className="en-user"
+                           onClick={() => this.setState({enClicked: true}) }>
+                               Enable User
+                            </button>
+                            )} 
                         </div>
                     </div>
                     {this.state.isLoaded ?  (
