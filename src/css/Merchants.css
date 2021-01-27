@@ -240,6 +240,7 @@ input[type="radio"]{
     width: 205.5px;
     height: 45px;
     margin-right: 1em;
+    outline: none;
 }
 .pb-submit{
     border: 0;
@@ -249,6 +250,7 @@ input[type="radio"]{
     padding: .5em 1.4em;
     width: 205.5px;
     height: 45px;
+    outline: none;
 }
 .pb-submit-g{
     border: 0;
@@ -258,6 +260,7 @@ input[type="radio"]{
     padding: .5em 1.4em;
     width: 205.5px;
     height: 45px;
+    outline: none;
 }
 
 .pb-submit1{
@@ -271,6 +274,7 @@ input[type="radio"]{
     display: flex;
     align-items: center;
     justify-content: center;
+    outline: none;
 }
 .pb-submit-red{
     border: 0;
