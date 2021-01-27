@@ -79,7 +79,11 @@
 .p-active{
     color: #6548C3;
 }
-.userdetail-top{
+/* .userdetail-top{
+    display: flex;
+    justify-content: space-between;
+} */
+.userdetail-top02{
     display: flex;
     justify-content: space-between;
 }
@@ -102,8 +106,8 @@
 .userde{
     border-radius: 50%;
     height: 189px;
-    width: 169px;
-    object-fit: fill;
+    width: 189px;
+    object-fit: cover;
 }
 .ud-sbox2{
     width: 30%;
