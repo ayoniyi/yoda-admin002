@@ -41,12 +41,12 @@ class UserLoanC extends Component {
         const baseURL = localStorage.getItem("baseURL")
 
 
-        axios.get(`${baseURL}/admin/user/${userId}/loans?limit=5`, axiosConfig)
+        axios.get(`${baseURL}/admin/user/${userId}/loans`, axiosConfig)
         .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
 
             this.setState({ 
-                uName: res.data.data.transactions.docs[0].customer.firstName+" "+res.data.data.transactions.docs[0].customer.lastName,
+                // uName: res.data.data.transactions.docs[0].customer.firstName+" "+res.data.data.transactions.docs[0].customer.lastName,
                 uLoans: res.data.data.transactions.docs,
                 isLoaded: true
             });
