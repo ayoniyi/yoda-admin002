@@ -244,7 +244,7 @@ class UserDetails extends Component {
 
                <section className="users">
                <div className="users-content animate__animated animate__fadeIn animate__slow">
-                    <div className="userdetail-top">
+                    <div className="userdetail-top02">
                         <div className="left-detail">
                             <h1 className="page-title">Users</h1>
                             <div className="pg-nav1">
