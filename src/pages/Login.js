@@ -38,7 +38,7 @@ class Login extends Component {
 
         if(navigator.onLine === true ) {
 
-            axios.post(`https://yoda-backend.herokuapp.com/admin/auth`, user)
+            axios.post(`https://api.yodahealth.io/admin/auth`, user)
             .then((res) => {
                 
                 console.log("RESPONSE RECEIVED: ", res);
@@ -50,7 +50,7 @@ class Login extends Component {
                     
                 localStorage.setItem("tokenset", res.data.data.admin.token);
                 
-                localStorage.setItem("baseURL", "https://yoda-backend.herokuapp.com")
+                localStorage.setItem("baseURL", "https://api.yodahealth.io")
                 localStorage.setItem("adminId", res.data.data.admin.id)
                 window.location = "/overview";
                 
